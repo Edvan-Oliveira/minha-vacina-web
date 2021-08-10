@@ -112,6 +112,11 @@
             <version>1.7.13</version>
         </dependency>
         <!--cliente rest-->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>font-awesome</artifactId>
+            <version>5.12.0</version>
+        </dependency>
     </dependencies>
 
     <build>

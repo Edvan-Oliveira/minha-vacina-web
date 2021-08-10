@@ -8,17 +8,23 @@
       xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-
+    <h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/all.min-jsf.css" />
+    <h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/v4-shims.min-jsf.css" />
 </h:head>
 <h:body>
-    <p:outputLabel value="Olá, Mundo!"/>
-    <p:inputText/>
-
-    <p:commandButton value="Abrir" onclick="PF('d').show()"/>
-
-    <p:dialog widgetVar="d" header="Cadastro">
-        <p:commandButton value="ALOKJHJHJHJ"/>
-    </p:dialog>
+    <p:commandButton icon="fa fa-plus" value="Nova Campanha"/>
+    <p:calendar showOn="button" pattern="dd/MM/yyyy"/>
+    <p:selectOneMenu filter="true" filterMatchMode="contains" value="a">
+        <f:selectItem itemLabel="Selecione um município" itemValue="a"/>
+        <f:selectItem itemLabel="Municipios 1"/>
+        <f:selectItem itemLabel="Municipios 2"/>
+        <f:selectItem itemLabel="Municipios 3"/>
+        <f:selectItem itemLabel="Municipios 4"/>
+        <f:selectItem itemLabel="Municipios 4"/>
+        <f:selectItem itemLabel="Municipios 1"/>
+        <f:selectItem itemLabel="Municipios 1"/>
+        <f:selectItem itemLabel="Municipios 1"/>
+    </p:selectOneMenu>
 </h:body>
 
 </html>
