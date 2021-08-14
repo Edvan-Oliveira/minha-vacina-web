@@ -13,6 +13,10 @@
     <h:outputStylesheet library="css" name="index.css"/>
 </h:head>
 <h:body>
+    <f:metadata>
+        <f:viewAction action="#{campanhaView.carregarDadosdaTela}"/>
+    </f:metadata>
+
     <p:commandButton icon="fa fa-plus" value="Nova Campanha" onclick="PF('dlgCadastroCampanha').show()"/>
 
     <p:dialog id="dlgCadastroCampanha" widgetVar="dlgCadastroCampanha" modal="true" resizable="false"
@@ -35,6 +39,8 @@
                     <p:selectOneMenu id="municipioCadastro" filter="true" styleClass="selects"
                                      filterMatchMode="contains" required="true">
                         <f:selectItem itemLabel="Selecione um município" itemValue="#{null}"/>
+                        <f:selectItems value="#{campanhaView.listaDeMunicipios}" var="municipio"
+                                       itemLabel="#{municipio.nome}" itemValue="#{municipio}"/>
                     </p:selectOneMenu>
                 </div>
 
@@ -43,6 +49,8 @@
                     <p:selectOneMenu id="vacinaCadastro" styleClass="selects" filter="true" filterMatchMode="contains"
                                      required="true">
                         <f:selectItem itemLabel="Selecione uma vacina" itemValue="#{null}"/>
+                        <f:selectItems value="#{campanhaView.listaDeVacinas}" var="vacina" itemLabel="#{vacina.nome}"
+                                       itemValue="#{vacina}"/>
                     </p:selectOneMenu>
                 </div>
             </div>
