@@ -1,0 +1,96 @@
+.teste {
+    height: 100px;
+    width: 100px;
+    background-color: #ccc;
+}
+
+.margin-label-bottom {
+    margin-bottom: 5px;
+    display: block;
+}
+
+.agrupamento-input {
+    margin-bottom: 15px;
+}
+
+.campo-descricao{
+    height: 150px;
+    max-height: 150px;
+    overflow: auto;
+    width: 100%;
+}
+
+.agrupar-select {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.componente-flex {
+    width: 49%;
+}
+
+.selects {
+    width: 500px;
+}
+
+div.componente-flex .ui-selectonemenu, div.componente-flex.ui-selectonemenu-label {
+    width: 100%;
+    text-align: center;
+}
+
+div.componente-flex .ui-selectonemenu,
+div.componente-flex label.ui-selectonemenu-label {
+    text-align: center;
+}
+
+.agrupar-opicional {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    width: 100%;
+}
+
+.campo.-opcional .ui-widget-header,
+.campo-opcional .ui-inputfield,
+.campo-opcional .ui-widget-content .ui-inputfield {
+    text-align: center;
+}
+
+.botoes-dialogo {
+    width: 340px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 40px auto 0px auto;
+    overflow: auto;
+}
+
+.botao-cancelar span {
+    background-color: rgba(186, 63, 63, 0.96);
+    font-size: 18px
+}
+
+.botao-gravar span {
+    background-color: rgba(59, 179, 85, 0.97);
+    font-size: 18px
+}
+
+.botoes-dialogo .ui-button,
+.botoes-dialogo .ui-button{
+    border: none;
+    background-color: rgba(0,0,0,0);
+}
+
+.botoes-dialogo .ui-button.ui-button-text-icon-left .ui-button-text{
+    border-radius: 5px;
+    width: 150px;
+}
+
+body .ui-dialog .ui-dialog-titlebar .ui-dialog-title {
+    font-size: 1.4rem;
+}

@@ -8,23 +8,73 @@
       xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-    <h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/all.min-jsf.css" />
-    <h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/v4-shims.min-jsf.css" />
+    <h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/all.min-jsf.css"/>
+    <h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/v4-shims.min-jsf.css"/>
+    <h:outputStylesheet library="css" name="index.css"/>
 </h:head>
 <h:body>
-    <p:commandButton icon="fa fa-plus" value="Nova Campanha"/>
-    <p:calendar showOn="button" pattern="dd/MM/yyyy"/>
-    <p:selectOneMenu filter="true" filterMatchMode="contains" value="a">
-        <f:selectItem itemLabel="Selecione um município" itemValue="a"/>
-        <f:selectItem itemLabel="Municipios 1"/>
-        <f:selectItem itemLabel="Municipios 2"/>
-        <f:selectItem itemLabel="Municipios 3"/>
-        <f:selectItem itemLabel="Municipios 4"/>
-        <f:selectItem itemLabel="Municipios 4"/>
-        <f:selectItem itemLabel="Municipios 1"/>
-        <f:selectItem itemLabel="Municipios 1"/>
-        <f:selectItem itemLabel="Municipios 1"/>
-    </p:selectOneMenu>
+    <p:commandButton icon="fa fa-plus" value="Nova Campanha" onclick="PF('dlgCadastroCampanha').show()"/>
+
+    <p:dialog id="dlgCadastroCampanha" widgetVar="dlgCadastroCampanha" modal="true" resizable="false"
+              header="Cadastro de Campanha" closable="false">
+        <h:form id="formCadastroCampanha">
+            <p:outputPanel styleClass="agrupamento-input">
+                <p:outputLabel for="nome" value="Nome" styleClass="margin-label-bottom"/>
+                <p:inputText id="nome" size="153" required="true"/>
+            </p:outputPanel>
+            <p:outputPanel styleClass="agrupamento-input">
+                <p:outputPanel>
+                    <p:outputLabel for="descricao" value="Descrição" styleClass="margin-label-bottom"/>
+                    <p:inputTextarea id="descricao" autoResize="true" styleClass="campo-descricao" required="true"/>
+                </p:outputPanel>
+            </p:outputPanel>
+
+            <div class="agrupar-select">
+                <div class="componente-flex">
+                    <p:outputLabel for="municipioCadastro" value="Município" styleClass="margin-label-bottom"/>
+                    <p:selectOneMenu id="municipioCadastro" filter="true" styleClass="selects"
+                                     filterMatchMode="contains" required="true">
+                        <f:selectItem itemLabel="Selecione um município" itemValue="#{null}"/>
+                    </p:selectOneMenu>
+                </div>
+
+                <div class="componente-flex">
+                    <p:outputLabel for="vacinaCadastro" value="Vacina" styleClass="margin-label-bottom"/>
+                    <p:selectOneMenu id="vacinaCadastro" styleClass="selects" filter="true" filterMatchMode="contains"
+                                     required="true">
+                        <f:selectItem itemLabel="Selecione uma vacina" itemValue="#{null}"/>
+                    </p:selectOneMenu>
+                </div>
+            </div>
+
+            <div class="agrupar-opicional">
+                <div class="campo-opcional">
+                    <p:outputLabel for="dataInicioCadastro" value="Data de inicío" styleClass="margin-label-bottom"/>
+                    <p:calendar id="dataInicioCadastro" showOn="button" pattern="dd/MM/yyyy" mask="99/99/9999"
+                                placeholder="__/__/____" size="20" required="true"/>
+                </div>
+
+                <div class="campo-opcional">
+                    <p:outputLabel for="dataFimCadastro" value="Data de término" styleClass="margin-label-bottom"/>
+                    <p:calendar id="dataFimCadastro" showOn="button" pattern="dd/MM/yyyy" mask="99/99/9999"
+                                placeholder="__/__/____" size="20" required="true"/>
+                </div>
+                <div class="campo-opcional">
+                    <p:outputLabel for="idadeMinimaCadastro" value="Idade mínima" styleClass="margin-label-bottom"/>
+                    <p:spinner id="idadeMinimaCadastro" size="15"/>
+                </div>
+                <div class="campo-opcional">
+                    <p:outputLabel for="idadeMaximaCadastro" value="Idade máxima" styleClass="margin-label-bottom"/>
+                    <p:spinner id="idadeMaximaCadastro" size="15"/>
+                </div>
+            </div>
+
+            <div class="botoes-dialogo  ">
+                <p:commandButton icon="fa fa-close" value="Cancelar" styleClass="botao-cancelar"/>
+                <p:commandButton icon="fa fa-save" value="Gravar" styleClass="botao-gravar"/>
+            </div>
+        </h:form>
+    </p:dialog>
 </h:body>
 
 </html>
