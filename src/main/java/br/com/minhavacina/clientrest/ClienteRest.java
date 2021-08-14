@@ -3,6 +3,7 @@ package br.com.minhavacina.clientrest;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpRequestFactory;
@@ -30,76 +31,76 @@ public class ClienteRest {
         this.tipoAutenticacao = BEARER_TOKEN;
     }
 
-    public <T> T chamarMetodoGet(String url, Class<T> classType) {
+    public <T> ResponseEntity<T> chamarMetodoGet(String url, Class<T> classType) {
         try {
             HttpEntity<?> body = new HttpEntity<>(obterHeaders());
-            return getClient().exchange(url, HttpMethod.GET, body, classType).getBody();
+            return getClient().exchange(url, HttpMethod.GET, body, classType);
         } catch (HttpStatusCodeException e) {
             throw new ClienteRestException(e.getResponseBodyAsString());
         }
     }
 
-        public <T> List<T> chamarMetodoGetListagem(String url, Class<T[]> listType) {
+        public <T> ResponseEntity<List<T>> chamarMetodoGetListagem(String url) {
         try {
             HttpEntity<?> body = new HttpEntity<>(obterHeaders());
-            ResponseEntity<T[]> response = getClient().exchange(url, HttpMethod.GET, body, listType);
-            return response.getBody() != null ? Arrays.asList(response.getBody()) : new ArrayList<>();
+            return getClient().exchange(url, HttpMethod.GET, body, new ParameterizedTypeReference<>() {
+            });
         } catch (HttpStatusCodeException e) {
             throw new ClienteRestException(e.getResponseBodyAsString());
         }
     }
 
-    public <T> T chamarMetodoGet(String url, Object parametros, Class<T> classType) {
+    public <T> ResponseEntity<T> chamarMetodoGet(String url, Object parametros, Class<T> classType) {
         try {
             HttpEntity<?> body = new HttpEntity<>(parametros, obterHeaders());
-            return getClient().exchange(url, HttpMethod.GET, body, classType).getBody();
+            return getClient().exchange(url, HttpMethod.GET, body, classType);
         } catch (HttpStatusCodeException e) {
             throw new ClienteRestException(e.getResponseBodyAsString());
         }
     }
 
-    public <T> List<T> chamarMetodoGetListagem(String url, Object parametros, Class<T[]> listType) {
+    public <T> ResponseEntity<List<T>> chamarMetodoGetListagem(String url, Object parametros) {
         try {
             HttpEntity<?> body = new HttpEntity<>(parametros, obterHeaders());
-            ResponseEntity<T[]> response = getClient().exchange(url, HttpMethod.GET, body, listType);
-            return response.getBody() != null ? Arrays.asList(response.getBody()) : new ArrayList<>();
+            return getClient().exchange(url, HttpMethod.GET, body, new ParameterizedTypeReference<>() {
+            });
         } catch (HttpStatusCodeException e) {
             throw new ClienteRestException(e.getResponseBodyAsString());
         }
     }
 
-    public <T> T chamarMetodoPost(String url, Object parametros, Class<T> classType) {
+    public <T> ResponseEntity<T> chamarMetodoPost(String url, Object parametros, Class<T> classType) {
         try {
             HttpEntity<?> body = new HttpEntity<>(parametros, obterHeaders());
-            return getClient().exchange(url, HttpMethod.POST, body, classType).getBody();
+            return getClient().exchange(url, HttpMethod.POST, body, classType);
         } catch (HttpStatusCodeException e) {
             throw new ClienteRestException(e.getResponseBodyAsString());
         }
     }
 
-    public <T> List<T> chamarMetodoPostListagem(String url, Object parametros, Class<T[]> listType) {
+    public <T> ResponseEntity<List<T>> chamarMetodoPostListagem(String url, Object parametros) {
         try {
             HttpEntity<?> body = new HttpEntity<>(parametros, obterHeaders());
-            ResponseEntity<T[]> response = getClient().exchange(url, HttpMethod.POST, body, listType);
-            return response.getBody() != null ? Arrays.asList(response.getBody()) : new ArrayList<>();
+            return getClient().exchange(url, HttpMethod.POST, body, new ParameterizedTypeReference<>() {
+            });
         } catch (HttpStatusCodeException e) {
             throw new ClienteRestException(e.getResponseBodyAsString());
         }
     }
 
-    public <T> T chamarMetodoPut(String url, Object parametros, Class<T> classType) {
+    public <T> ResponseEntity chamarMetodoPut(String url, Object parametros) {
         try {
             HttpEntity<?> body = new HttpEntity<>(parametros, obterHeaders());
-            return getClient().exchange(url, HttpMethod.PUT, body, classType).getBody();
+            return getClient().exchange(url, HttpMethod.PUT, body, Void.class);
         } catch (HttpStatusCodeException e) {
             throw new ClienteRestException(e.getResponseBodyAsString());
         }
     }
 
-    public void chamarMetodoDelete(String url) {
+    public ResponseEntity chamarMetodoDelete(String url) {
         try {
             HttpEntity<?> request = new HttpEntity<>(obterHeaders());
-            getClient().exchange(url, HttpMethod.DELETE, request, String.class);
+            return getClient().exchange(url, HttpMethod.DELETE, request, Void.class);
         } catch (HttpStatusCodeException e) {
             throw new ClienteRestException(e.getResponseBodyAsString());
         }

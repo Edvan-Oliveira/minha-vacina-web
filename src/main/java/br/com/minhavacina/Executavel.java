@@ -1,14 +1,22 @@
 package br.com.minhavacina;
 
-import br.com.minhavacina.clientrest.ClienteRest;
-import br.com.minhavacina.domain.Municipio;
-
 public class Executavel {
     public static void main(String[] args) {
-        ClienteRest clienteRest = new ClienteRest();
-        Municipio municipio = clienteRest.chamarMetodoGet("http://localhost:8080/minha-vacina-api/municipios/5",
-                Municipio.class);
+        // chamarMetodoGetListagem +
+        // chamarMetodoGet +
+        // chamarMetodoPost +
+        // chamarMetodoPut +
+        // chamarMetodoDelete +
 
-        System.out.println(municipio);
+//
+//        ClienteRest clienteRest = new ClienteRest();
+//        Usuario usuario = new Usuario();
+//        usuario.setId(11);
+//
+//        ResponseEntity resposta =  clienteRest.chamarMetodoDelete(Constantes.USUARIO + "/" + usuario.getId());
+//
+//        System.out.println(resposta);
+
+
     }
 }
