@@ -17,7 +17,13 @@
         <f:viewAction action="#{campanhaView.carregarDadosdaTela}"/>
     </f:metadata>
 
+    <p:growl id="mensagem"/>
+
     <p:commandButton icon="fa fa-plus" value="Nova Campanha" onclick="PF('dlgCadastroCampanha').show()"/>
+
+    <h:form>
+        <p:commandButton value="TTTTT" action="#{campanhaView.t}" update="mensagem"/>
+    </h:form>
 
     <p:dialog id="dlgCadastroCampanha" widgetVar="dlgCadastroCampanha" modal="true" resizable="false"
               header="Cadastro de Campanha" closable="false">
@@ -78,7 +84,8 @@
             </div>
 
             <div class="botoes-dialogo  ">
-                <p:commandButton icon="fa fa-close" value="Cancelar" styleClass="botao-cancelar"/>
+                <p:commandButton icon="fa fa-close" value="Cancelar" styleClass="botao-cancelar"
+                                 onclick="PF('dlgCadastroCampanha').hide()"/>
                 <p:commandButton icon="fa fa-save" value="Gravar" styleClass="botao-gravar"/>
             </div>
         </h:form>
