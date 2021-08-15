@@ -21,21 +21,20 @@
 
     <p:commandButton icon="fa fa-plus" value="Nova Campanha" onclick="PF('dlgCadastroCampanha').show()"/>
 
-    <h:form>
-        <p:commandButton value="TTTTT" action="#{campanhaView.t}" update="mensagem"/>
-    </h:form>
-
     <p:dialog id="dlgCadastroCampanha" widgetVar="dlgCadastroCampanha" modal="true" resizable="false"
               header="Cadastro de Campanha" closable="false">
         <h:form id="formCadastroCampanha">
             <p:outputPanel styleClass="agrupamento-input">
                 <p:outputLabel for="nome" value="Nome" styleClass="margin-label-bottom"/>
-                <p:inputText id="nome" size="153" required="true"/>
+                <p:inputText id="nome" size="153" required="true" requiredMessage="Nome da campanha é obrigatório"
+                             value="#{campanhaView.campanha.nome}"/>
             </p:outputPanel>
             <p:outputPanel styleClass="agrupamento-input">
                 <p:outputPanel>
                     <p:outputLabel for="descricao" value="Descrição" styleClass="margin-label-bottom"/>
-                    <p:inputTextarea id="descricao" autoResize="true" styleClass="campo-descricao" required="true"/>
+                    <p:inputTextarea id="descricao" autoResize="true" styleClass="campo-descricao" required="true"
+                                     requiredMessage="Descrição da campanha é obrigatório"
+                                     value="#{campanhaView.campanha.descricao}"/>
                 </p:outputPanel>
             </p:outputPanel>
 
@@ -43,20 +42,23 @@
                 <div class="componente-flex">
                     <p:outputLabel for="municipioCadastro" value="Município" styleClass="margin-label-bottom"/>
                     <p:selectOneMenu id="municipioCadastro" filter="true" styleClass="selects"
-                                     filterMatchMode="contains" required="true">
+                                     filterMatchMode="contains" required="true"
+                                     requiredMessage="Município da campanha é obrigatório"
+                                     value="#{campanhaView.campanha.municipio.id}">
                         <f:selectItem itemLabel="Selecione um município" itemValue="#{null}"/>
                         <f:selectItems value="#{campanhaView.listaDeMunicipios}" var="municipio"
-                                       itemLabel="#{municipio.nome}" itemValue="#{municipio}"/>
+                                       itemLabel="#{municipio.nome}" itemValue="#{municipio.id}"/>
                     </p:selectOneMenu>
                 </div>
 
                 <div class="componente-flex">
                     <p:outputLabel for="vacinaCadastro" value="Vacina" styleClass="margin-label-bottom"/>
                     <p:selectOneMenu id="vacinaCadastro" styleClass="selects" filter="true" filterMatchMode="contains"
-                                     required="true">
+                                     required="true" requiredMessage="Vacina da campanha é obrigatório"
+                                     value="#{campanhaView.campanha.vacina.id}">
                         <f:selectItem itemLabel="Selecione uma vacina" itemValue="#{null}"/>
                         <f:selectItems value="#{campanhaView.listaDeVacinas}" var="vacina" itemLabel="#{vacina.nome}"
-                                       itemValue="#{vacina}"/>
+                                       itemValue="#{vacina.id}"/>
                     </p:selectOneMenu>
                 </div>
             </div>
@@ -65,28 +67,29 @@
                 <div class="campo-opcional">
                     <p:outputLabel for="dataInicioCadastro" value="Data de inicío" styleClass="margin-label-bottom"/>
                     <p:calendar id="dataInicioCadastro" showOn="button" pattern="dd/MM/yyyy" mask="99/99/9999"
-                                placeholder="__/__/____" size="20"/>
+                                placeholder="__/__/____" size="20" value="#{campanhaView.campanha.dataInicio}"/>
                 </div>
 
                 <div class="campo-opcional">
                     <p:outputLabel for="dataFimCadastro" value="Data de término" styleClass="margin-label-bottom"/>
                     <p:calendar id="dataFimCadastro" showOn="button" pattern="dd/MM/yyyy" mask="99/99/9999"
-                                placeholder="__/__/____" size="20"/>
+                                placeholder="__/__/____" size="20" value="#{campanhaView.campanha.dataFim}"/>
                 </div>
                 <div class="campo-opcional">
                     <p:outputLabel for="idadeMinimaCadastro" value="Idade mínima" styleClass="margin-label-bottom"/>
-                    <p:spinner id="idadeMinimaCadastro" size="15"/>
+                    <p:spinner id="idadeMinimaCadastro" size="15" value="#{campanhaView.campanha.idadeMinima}"/>
                 </div>
                 <div class="campo-opcional">
                     <p:outputLabel for="idadeMaximaCadastro" value="Idade máxima" styleClass="margin-label-bottom"/>
-                    <p:spinner id="idadeMaximaCadastro" size="15"/>
+                    <p:spinner id="idadeMaximaCadastro" size="15" value="#{campanhaView.campanha.idadeMaxima}"/>
                 </div>
             </div>
 
             <div class="botoes-dialogo  ">
                 <p:commandButton icon="fa fa-close" value="Cancelar" styleClass="botao-cancelar"
                                  onclick="PF('dlgCadastroCampanha').hide()"/>
-                <p:commandButton icon="fa fa-save" value="Gravar" styleClass="botao-gravar"/>
+                <p:commandButton icon="fa fa-save" value="Gravar" styleClass="botao-gravar"
+                                 action="#{campanhaView.cadastrarCampanha}" update="@form, mensagem"/>
             </div>
         </h:form>
     </p:dialog>

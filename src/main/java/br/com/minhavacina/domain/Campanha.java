@@ -16,4 +16,9 @@ public class Campanha {
     private Date dataFim;
     private Integer idadeMinima;
     private Integer idadeMaxima;
+
+    public Campanha() {
+        this.vacina = new Vacina();
+        this.municipio = new Municipio();
+    }
 }

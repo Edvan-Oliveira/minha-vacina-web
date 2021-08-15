@@ -31,12 +31,15 @@ public class CampanhaView implements Serializable {
     }
 
     public void cadastrarCampanha() {
-        this.campanhaService.cadastrarCampanha(this.campanha).getStatusCodeValue();
-
+        int codigoDoStatus = this.campanhaService.cadastrarCampanha(this.campanha).getStatusCodeValue();
+        if (codigoDoStatus == 201) JSFUtil.adicionarMensagemDeSucesso("Campanha cadastrada com sucesso!");
+        else JSFUtil.adicionarMensagemDeErro("Ocorreu um erro!");
+        this.limparCampanha();
+        JSFUtil.fecharDialogo("dlgCadastroCampanha");
     }
 
-    public void t() {
-        JSFUtil.adicionarMensagemDeErro("Errooooo");
+    public void limparCampanha() {
+        this.campanha = new Campanha();
     }
 
 }

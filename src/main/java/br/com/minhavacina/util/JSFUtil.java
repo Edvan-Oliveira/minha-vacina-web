@@ -42,7 +42,7 @@ public class JSFUtil {
     }
 
     public static void fecharDialogo(String nome) {
-        PrimeFaces.current().executeScript("PF('" + nome + ").hide()");
+        PrimeFaces.current().executeScript("PF('" + nome + "').hide()");
     }
 
     public static void adicionarObjetoNaSessao(String nome, Object objeto) {
