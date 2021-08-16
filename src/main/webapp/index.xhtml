@@ -21,6 +21,56 @@
 
     <p:commandButton icon="fa fa-plus" value="Nova Campanha" onclick="PF('dlgCadastroCampanha').show()"/>
 
+    <div class="tabela-campanhas">
+        <h:form id="formTabCampanhas">
+            <p:dataTable id="tabCampanhas" widgetVar="tabCampanhas" paginator="true" paginatorPosition="bottom"
+                         emptyMessage="Nenhuma campanha encontrada" value="#{campanhaView.listaDeCampanhas}"
+                         var="campanha">
+
+                <p:column headerText="Nome" style="width: 20%">
+                    <p:outputLabel value="#{campanha.nome}"/>
+                </p:column>
+
+                <p:column headerText="Data Início">
+                    <p:outputLabel value="#{campanhaView.formatarDataParaVisualizacao(campanha.dataInicio)}"/>
+                </p:column>
+
+                <p:column headerText="Data Termino">
+                    <p:outputLabel value="#{campanhaView.formatarDataParaVisualizacao(campanha.dataFim)}"/>
+                </p:column>
+
+                <p:column headerText="Idade Mínima">
+                    <p:outputLabel value="#{campanhaView.formatarIdadeParaVisualizacao(campanha.idadeMinima)}"/>
+                </p:column>
+
+                <p:column headerText="Idade Máxima">
+                    <p:outputLabel value="#{campanhaView.formatarIdadeParaVisualizacao(campanha.idadeMaxima)}"/>
+                </p:column>
+
+                <p:column headerText="Município">
+                    <p:outputLabel value="#{campanha.municipio.nome}"/>
+                </p:column>
+
+                <p:column headerText="Vacina">
+                    <p:outputLabel value="#{campanha.vacina.nome}"/>
+                </p:column>
+
+                <p:column headerText="Detalhes">
+                    <p:commandButton icon="fa fa-align-justify" styleClass="icone-detalhe"/>
+                </p:column>
+
+                <p:column headerText="Editar">
+                    <p:commandButton icon="fa fa-pencil" styleClass="icone-editar"/>
+                </p:column>
+
+                <p:column headerText="Excluir">
+                    <p:commandButton icon="fa fa-trash" styleClass="icone-remover"/>
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+    </div>
+
     <p:dialog id="dlgCadastroCampanha" widgetVar="dlgCadastroCampanha" modal="true" resizable="false"
               header="Cadastro de Campanha" closable="false">
         <h:form id="formCadastroCampanha">
@@ -87,9 +137,12 @@
 
             <div class="botoes-dialogo  ">
                 <p:commandButton icon="fa fa-close" value="Cancelar" styleClass="botao-cancelar"
-                                 onclick="PF('dlgCadastroCampanha').hide()"/>
+                                 onclick="PF('dlgCadastroCampanha').hide()">
+                    <p:ajax resetValues="true" update="@form"/>
+                </p:commandButton>
                 <p:commandButton icon="fa fa-save" value="Gravar" styleClass="botao-gravar"
-                                 action="#{campanhaView.cadastrarCampanha}" update="@form, mensagem"/>
+                                 action="#{campanhaView.cadastrarCampanha}"
+                                 update="@form, mensagem, :formTabCampanhas:tabCampanhas"/>
             </div>
         </h:form>
     </p:dialog>

@@ -10,6 +10,10 @@ import lombok.Data;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Named @Data
@@ -19,15 +23,18 @@ public class CampanhaView implements Serializable {
     private List<Municipio> listaDeMunicipios;
     private List<Vacina> listaDeVacinas;
     private Campanha campanha;
+    private List<Campanha> listaDeCampanhas;
 
     public CampanhaView() {
         this.campanhaService = new CampanhaService();
+        this.campanha = new Campanha();
+        this.listaDeCampanhas = new ArrayList<>();
     }
 
     public void carregarDadosdaTela() {
         this.listaDeMunicipios = this.campanhaService.listarTodosOsMunipios().getBody();
         this.listaDeVacinas = this.campanhaService.listarTodasAsVacinas().getBody();
-        this.campanha = new Campanha();
+        this.listaDeCampanhas = this.campanhaService.listarTodasAsCampanhas().getBody();
     }
 
     public void cadastrarCampanha() {
@@ -40,6 +47,24 @@ public class CampanhaView implements Serializable {
 
     public void limparCampanha() {
         this.campanha = new Campanha();
+    }
+
+    public String formatarDataParaVisualizacao(String data) {
+        String[] s = data.split("T");
+        String dataFormatada = "----    ";
+        try {
+            if (JSFUtil.objetoNaoEstarNuloNemVazio(data)) {
+                Date dataUtil = new SimpleDateFormat("yyyy-MM-dd").parse(s[0]);
+                dataFormatada = new SimpleDateFormat("dd/MM/yyyy").format(dataUtil);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return dataFormatada;
+    }
+
+    public String formatarIdadeParaVisualizacao(String idade) {
+        return JSFUtil.objetoNaoEstarNuloNemVazio(idade) ? idade + " anos" : "----";
     }
 
 }

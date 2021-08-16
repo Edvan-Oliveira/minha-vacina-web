@@ -27,4 +27,8 @@ public class CampanhaService {
     public ResponseEntity<Campanha> cadastrarCampanha(Campanha campanha) {
         return this.clienteRest.chamarMetodoPost(Constantes.CAMPANHA, campanha, Campanha.class);
     }
+
+    public ResponseEntity<List<Campanha>> listarTodasAsCampanhas() {
+        return this.clienteRest.chamarMetodoGetListagem(Constantes.CAMPANHA);
+    }
 }
