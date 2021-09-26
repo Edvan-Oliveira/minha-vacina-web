@@ -23,16 +23,19 @@
         <h:form id="formLogin">
             <div class="agrupador-input">
                 <p:outputLabel for="email" value="Email" styleClass="label"/>
-                <p:inputText id="email" styleClass="input"/>
+                <p:inputText id="email" styleClass="input" required="true" requiredMessage="O email é obrigatório"
+                             value="#{loginView.loginDTO.email}"/>
             </div>
 
             <div class="agrupador-input">
                 <p:outputLabel for="senha" value="Senha" styleClass="label"/>
-                <p:password id="senha" styleClass="input" toggleMask="true"/>
+                <p:password id="senha" styleClass="input" toggleMask="true" required="true"
+                            requiredMessage="A senha é obrigatória" value="#{loginView.loginDTO.senha}"/>
             </div>
 
             <div>
-                <p:commandButton icon="fa fa-lock" value="Acessar" styleClass="botao"/>
+                <p:commandButton icon="fa fa-lock" value="Acessar" styleClass="botao"
+                                 action="#{loginView.realizarLogin}" update="mensagens"/>
             </div>
         </h:form>
     </div>

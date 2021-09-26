@@ -35,8 +35,8 @@ public class ClienteRest {
         try {
             HttpEntity<?> body = new HttpEntity<>(obterHeaders());
             return getClient().exchange(url, HttpMethod.GET, body, classType);
-        } catch (HttpStatusCodeException e) {
-            throw new ClienteRestException(e.getResponseBodyAsString());
+        } catch (Exception e) {
+            return new ResponseEntity<T>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -44,7 +44,7 @@ public class ClienteRest {
         try {
             HttpEntity<?> body = new HttpEntity<>(obterHeaders());
             return getClient().exchange(url, HttpMethod.GET, body, classType);
-        } catch (HttpStatusCodeException | NoClassDefFoundError e) {
+        } catch (Exception e) {
             return new ResponseEntity<T>(HttpStatus.BAD_REQUEST);
         }
     }
@@ -54,8 +54,8 @@ public class ClienteRest {
             HttpEntity<?> body = new HttpEntity<>(obterHeaders());
             return getClient().exchange(url, HttpMethod.GET, body, new ParameterizedTypeReference<>() {
             });
-        } catch (HttpStatusCodeException e) {
-            throw new ClienteRestException(e.getResponseBodyAsString());
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -63,8 +63,8 @@ public class ClienteRest {
         try {
             HttpEntity<?> body = new HttpEntity<>(parametros, obterHeaders());
             return getClient().exchange(url, HttpMethod.GET, body, classType);
-        } catch (HttpStatusCodeException e) {
-            throw new ClienteRestException(e.getResponseBodyAsString());
+        } catch (Exception e) {
+            return new ResponseEntity<T>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -73,8 +73,8 @@ public class ClienteRest {
             HttpEntity<?> body = new HttpEntity<>(parametros, obterHeaders());
             return getClient().exchange(url, HttpMethod.GET, body, new ParameterizedTypeReference<>() {
             });
-        } catch (HttpStatusCodeException e) {
-            throw new ClienteRestException(e.getResponseBodyAsString());
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -82,8 +82,8 @@ public class ClienteRest {
         try {
             HttpEntity<?> body = new HttpEntity<>(parametros, obterHeaders());
             return getClient().exchange(url, HttpMethod.POST, body, classType);
-        } catch (HttpStatusCodeException e) {
-            throw new ClienteRestException(e.getResponseBodyAsString());
+        } catch (Exception e) {
+            return new ResponseEntity<T>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -92,8 +92,8 @@ public class ClienteRest {
             HttpEntity<?> body = new HttpEntity<>(parametros, obterHeaders());
             return getClient().exchange(url, HttpMethod.POST, body, new ParameterizedTypeReference<>() {
             });
-        } catch (HttpStatusCodeException e) {
-            throw new ClienteRestException(e.getResponseBodyAsString());
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -101,8 +101,8 @@ public class ClienteRest {
         try {
             HttpEntity<?> body = new HttpEntity<>(parametros, obterHeaders());
             return getClient().exchange(url, HttpMethod.PUT, body, Void.class);
-        } catch (HttpStatusCodeException e) {
-            throw new ClienteRestException(e.getResponseBodyAsString());
+        } catch (Exception e) {
+            return new ResponseEntity<T>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -110,8 +110,8 @@ public class ClienteRest {
         try {
             HttpEntity<?> request = new HttpEntity<>(obterHeaders());
             return getClient().exchange(url, HttpMethod.DELETE, request, Void.class);
-        } catch (HttpStatusCodeException e) {
-            throw new ClienteRestException(e.getResponseBodyAsString());
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 

@@ -17,14 +17,15 @@ public class JSFUtil {
         ctx.addMessage(null, msg);
     }
 
-    public static void adicionarMensagemDeErro(String titulo) {
-        adicionarMensagemDeErro(titulo, null);
+    public static boolean adicionarMensagemDeErro(String titulo) {
+        return adicionarMensagemDeErro(titulo, null);
     }
 
-    public static void adicionarMensagemDeErro(String titulo, String mensagem) {
+    public static boolean adicionarMensagemDeErro(String titulo, String mensagem) {
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, titulo, mensagem);
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.addMessage(null, msg);
+        return false;
     }
 
     public static void adicionarMensagemDeAviso(String titulo) {
