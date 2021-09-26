@@ -6,15 +6,25 @@ import br.com.minhavacina.domain.Campanha;
 import br.com.minhavacina.domain.Municipio;
 import br.com.minhavacina.domain.Vacina;
 import br.com.minhavacina.shared.Constantes;
+import br.com.minhavacina.util.JSFUtil;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+
+import static br.com.minhavacina.util.JSFUtil.resgatarObjetoDaSessao;
 
 public class CampanhaService {
     private ClienteRest clienteRest;
 
     public CampanhaService() {
         this.clienteRest = new ClienteRest();
+        this.recuperarTokenDaSessao();
+    }
+
+    private void recuperarTokenDaSessao() {
+        String token = (String) resgatarObjetoDaSessao("token");
+        this.clienteRest.setTipoAutenticacao(TipoAutenticacao.BEARER_TOKEN);
+        this.clienteRest.setToken(token);
     }
 
     public ResponseEntity<List<Municipio>> listarTodosOsMunipios() {
