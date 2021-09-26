@@ -40,7 +40,16 @@ public class ClienteRest {
         }
     }
 
-        public <T> ResponseEntity<List<T>> chamarMetodoGetListagem(String url) {
+    public <T> ResponseEntity<T> chamarMetodoGet2(String url, Class<T> classType) {
+        try {
+            HttpEntity<?> body = new HttpEntity<>(obterHeaders());
+            return getClient().exchange(url, HttpMethod.GET, body, classType);
+        } catch (HttpStatusCodeException | NoClassDefFoundError e) {
+            return new ResponseEntity<T>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public <T> ResponseEntity<List<T>> chamarMetodoGetListagem(String url) {
         try {
             HttpEntity<?> body = new HttpEntity<>(obterHeaders());
             return getClient().exchange(url, HttpMethod.GET, body, new ParameterizedTypeReference<>() {
@@ -175,14 +184,15 @@ public class ClienteRest {
 
     private static class VerificadorUtil {
 
-        public VerificadorUtil() {}
+        public VerificadorUtil() {
+        }
 
         public static boolean estaNulo(Object objeto) {
             return objeto == null;
         }
 
         public static boolean estaVazio(Object objeto) {
-            return (objeto instanceof Collection) ? ((Collection)objeto).isEmpty() : StringUtils.isEmpty(objeto.toString());
+            return (objeto instanceof Collection) ? ((Collection) objeto).isEmpty() : StringUtils.isEmpty(objeto.toString());
         }
 
         public static boolean naoEstaNulo(Object objeto) {

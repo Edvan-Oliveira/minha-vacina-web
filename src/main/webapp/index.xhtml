@@ -63,8 +63,8 @@
                     <p:commandButton icon="fa fa-pencil" styleClass="icone-editar"/>
                 </p:column>
 
-                <p:column headerText="Excluir">
-                    <p:commandButton icon="fa fa-trash" styleClass="icone-remover"/>
+                <p:column headerText="Finalizar">
+                    <p:commandButton icon="fa fa-unlock" styleClass="icone-remover"/>
                 </p:column>
 
             </p:dataTable>
@@ -127,11 +127,11 @@
                 </div>
                 <div class="campo-opcional">
                     <p:outputLabel for="idadeMinimaCadastro" value="Idade mínima" styleClass="margin-label-bottom"/>
-                    <p:spinner id="idadeMinimaCadastro" size="15" value="#{campanhaView.campanha.idadeMinima}"/>
+                    <p:spinner id="idadeMinimaCadastro" size="15" value="#{campanhaView.campanha.idadeMinima}" min="0"/>
                 </div>
                 <div class="campo-opcional">
                     <p:outputLabel for="idadeMaximaCadastro" value="Idade máxima" styleClass="margin-label-bottom"/>
-                    <p:spinner id="idadeMaximaCadastro" size="15" value="#{campanhaView.campanha.idadeMaxima}"/>
+                    <p:spinner id="idadeMaximaCadastro" size="15" value="#{campanhaView.campanha.idadeMaxima}" min="0"/>
                 </div>
             </div>
 

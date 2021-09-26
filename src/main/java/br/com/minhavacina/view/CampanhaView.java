@@ -41,12 +41,13 @@ public class CampanhaView implements Serializable {
         int codigoDoStatus = this.campanhaService.cadastrarCampanha(this.campanha).getStatusCodeValue();
         if (codigoDoStatus == 201) JSFUtil.adicionarMensagemDeSucesso("Campanha cadastrada com sucesso!");
         else JSFUtil.adicionarMensagemDeErro("Ocorreu um erro!");
-        this.limparCampanha();
+        this.limparObjetos();
         JSFUtil.fecharDialogo("dlgCadastroCampanha");
     }
 
-    public void limparCampanha() {
+    public void limparObjetos() {
         this.campanha = new Campanha();
+        this.listaDeCampanhas = this.campanhaService.listarTodasAsCampanhas().getBody();
     }
 
     public String formatarDataParaVisualizacao(String data) {

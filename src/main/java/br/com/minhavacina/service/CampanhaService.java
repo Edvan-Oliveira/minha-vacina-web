@@ -1,6 +1,7 @@
 package br.com.minhavacina.service;
 
 import br.com.minhavacina.clientrest.ClienteRest;
+import br.com.minhavacina.clientrest.TipoAutenticacao;
 import br.com.minhavacina.domain.Campanha;
 import br.com.minhavacina.domain.Municipio;
 import br.com.minhavacina.domain.Vacina;
