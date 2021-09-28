@@ -32,10 +32,6 @@ public class CampanhaView implements Serializable {
         this.listaDeCampanhas = new ArrayList<>();
     }
 
-    public String verificarUsuarioLogado() {
-        return objetoExisteNaSessaoIhNaoEstaNulo("token") ? null : "login?faces-redirect=true";
-    }
-
     public void carregarDadosdaTela() {
         this.listaDeMunicipios = this.campanhaService.listarTodosOsMunipios().getBody();
         this.listaDeVacinas = this.campanhaService.listarTodasAsVacinas().getBody();
