@@ -129,3 +129,24 @@ body .ui-datatable thead th {
 .tabela-campanhas .ui-button {
     border: none;
 }
+
+.nova-campanha-filtro-ativas-inativas {
+    width: 530px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.filtro-campanhas {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    width: 340px;
+}
+
+.label-filtro {
+    margin-right: 10px;
+}

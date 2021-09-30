@@ -4,6 +4,7 @@ public interface Constantes {
     String PADRAO = "http://localhost:8080/minha-vacina-api";
     String MUNICIPIO = PADRAO + "/municipios";
     String CAMPANHA = PADRAO + "/campanhas";
+    String CAMPANHA_INATIVA = CAMPANHA + "/inativas";
     String VACINA = PADRAO + "/vacinas";
     String LOGIN = PADRAO + "/usuarios/login";
     String USUARIO = PADRAO + "/usuarios";

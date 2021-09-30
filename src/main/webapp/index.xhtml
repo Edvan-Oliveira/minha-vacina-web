@@ -19,7 +19,24 @@
 
     <p:growl id="mensagem"/>
 
-    <p:commandButton icon="fa fa-plus" value="Nova Campanha" onclick="PF('dlgCadastroCampanha').show()"/>
+
+    <div class="nova-campanha-filtro-ativas-inativas">
+        <p:commandButton icon="fa fa-plus" value="Nova Campanha" onclick="PF('dlgCadastroCampanha').show()"/>
+        <h:form id="formFiltroCampanhas">
+            <div class="filtro-campanhas">
+                <div class="label-filtro">
+                    <p:outputLabel value="Filtrar campanhas: "/>
+                </div>
+
+                <p:selectOneRadio value="#{campanhaView.statusListaCampanhas}">
+                    <f:selectItem itemValue="#{true}" itemLabel="Ativas"/>
+                    <f:selectItem itemValue="#{false}" itemLabel="Inativas"/>
+                    <p:ajax listener="#{campanhaView.eventoAjaxListarCampanhasAtivasOuInativas}"
+                            update=":formTabCampanhas:tabCampanhas"/>
+                </p:selectOneRadio>
+            </div>
+        </h:form>
+    </div>
 
     <div class="tabela-campanhas">
         <h:form id="formTabCampanhas">
