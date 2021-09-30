@@ -1,9 +1,12 @@
 package br.com.minhavacina.util;
 
 import org.primefaces.PrimeFaces;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import java.util.List;
 
 public class JSFUtil {
 
@@ -15,6 +18,10 @@ public class JSFUtil {
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, titulo, mensagem);
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.addMessage(null, msg);
+    }
+
+    public static boolean adicionarMensagemDeErro() {
+        return adicionarMensagemDeErro("Ocorreu um erro");
     }
 
     public static boolean adicionarMensagemDeErro(String titulo) {
@@ -81,4 +88,20 @@ public class JSFUtil {
         return false;
     }
 
+    public static boolean objetoNaoEstarNulo(Object objeto) {
+        return objeto != null;
+    }
+
+  @SuppressWarnings("all")
+    public static boolean validarResponseEntity(ResponseEntity objetoResponseEntity) {
+        return objetoResponseEntity.getStatusCodeValue() >= 200
+                && objetoResponseEntity.getStatusCodeValue() < 300
+                && objetoNaoEstarNulo(objetoResponseEntity.getBody());
+    }
+
+
+    public static boolean validarResponseEntityAtualizacao(ResponseEntity<Void> objetoResponseEntity) {
+        return objetoResponseEntity.getStatusCodeValue() >= 200
+                && objetoResponseEntity.getStatusCodeValue() < 300;
+    }
 }

@@ -42,7 +42,7 @@
         <h:form id="formTabCampanhas">
             <p:dataTable id="tabCampanhas" widgetVar="tabCampanhas" paginator="true" paginatorPosition="bottom"
                          emptyMessage="Nenhuma campanha encontrada" value="#{campanhaView.listaDeCampanhas}"
-                         var="campanha">
+                         var="campanha" rows="15">
 
                 <p:column headerText="Nome" style="width: 20%">
                     <p:outputLabel value="#{campanha.nome}"/>
@@ -73,15 +73,25 @@
                 </p:column>
 
                 <p:column headerText="Detalhes">
-                    <p:commandButton icon="fa fa-align-justify" styleClass="icone-detalhe"/>
+                    <p:commandButton icon="fa fa-align-justify" styleClass="icone-detalhe">
+                        <f:setPropertyActionListener target="#{campanhaView.campanha.id}" value="#{campanha.id}"/>
+                    </p:commandButton>
                 </p:column>
 
                 <p:column headerText="Editar">
-                    <p:commandButton icon="fa fa-pencil" styleClass="icone-editar"/>
+                    <p:commandButton icon="fa fa-pencil" styleClass="icone-editar">
+                        <f:setPropertyActionListener target="#{campanhaView.campanha.id}" value="#{campanha.id}"/>
+                    </p:commandButton>
                 </p:column>
 
                 <p:column headerText="Finalizar">
-                    <p:commandButton icon="fa fa-unlock" styleClass="icone-remover"/>
+                    <p:commandButton icon="fa fa-unlock" styleClass="icone-remover" rendered="#{campanha.ativa}"
+                                     onclick="PF('dlgConfirmacaoFinalizarCampanha').show()">
+                        <f:setPropertyActionListener target="#{campanhaView.campanha.id}" value="#{campanha.id}"/>
+                    </p:commandButton>
+
+                    <p:commandButton icon="fa fa-lock" styleClass="icone-remover"
+                                     rendered="#{!campanha.ativa}"/>
                 </p:column>
 
             </p:dataTable>
@@ -163,6 +173,19 @@
             </div>
         </h:form>
     </p:dialog>
-</h:body>
 
+    <p:dialog id="dlgConfirmacaoFinalizarCampanha" widgetVar="dlgConfirmacaoFinalizarCampanha" modal="true" closable="false"
+              header="Deseja realmente finalizar a campanha?" resizable="false">
+        <h:form id="formConfirmaFinalizarCampanha">
+            <div class="botoes-dialogo  ">
+                <p:commandButton icon="fa fa-close" value="Cancelar" styleClass="botao-gravar"
+                                 onclick="PF('dlgConfirmacaoFinalizarCampanha').hide()"/>
+                <p:commandButton icon="fa fa-check" value="Finalizar" styleClass="botao-cancelar"
+                                 action="#{campanhaView.finalizarCampanha}"
+                                 onclick="PF('dlgConfirmacaoFinalizarCampanha').hide()"
+                                 update=":formTabCampanhas:tabCampanhas, mensagem, :formTabCampanhas:tabCampanhas"/>
+            </div>
+        </h:form>
+    </p:dialog>
+</h:body>
 </html>

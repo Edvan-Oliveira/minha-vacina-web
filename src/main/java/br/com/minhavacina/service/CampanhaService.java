@@ -46,4 +46,15 @@ public class CampanhaService {
         return this.clienteRest.chamarMetodoGetListagem(CAMPANHA_INATIVA, Campanha[].class);
     }
 
+    public ResponseEntity<Void> atualizarCampanha(Campanha campanha) {
+        return this.clienteRest.chamarMetodoPut(CAMPANHA, campanha);
+    }
+
+    public ResponseEntity<Campanha> buscarCampanhaPorId(Integer id) {
+        return clienteRest.chamarMetodoGet(CAMPANHA + "/" + id, Campanha.class);
+    }
+
+    public ResponseEntity<Void> finalizarCampanha(Integer id) {
+        return clienteRest.chamarMetodoPut(FINALIZA_CAMPANHA + "/" + id, Campanha.class);
+    }
 }

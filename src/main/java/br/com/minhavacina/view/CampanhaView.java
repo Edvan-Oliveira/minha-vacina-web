@@ -28,6 +28,7 @@ public class CampanhaView implements Serializable {
     private Campanha campanha;
     private List<Campanha> listaDeCampanhas;
     private boolean statusListaCampanhas;
+    private String texto;
 
     public CampanhaView() {
         this.campanhaService = new CampanhaService();
@@ -43,14 +44,14 @@ public class CampanhaView implements Serializable {
     }
 
     public void cadastrarCampanha() {
-        int codigoDoStatus = this.campanhaService.cadastrarCampanha(this.campanha).getStatusCodeValue();
-        if (codigoDoStatus == 201) adicionarMensagemDeSucesso("Campanha cadastrada com sucesso!");
-        else adicionarMensagemDeErro("Ocorreu um erro!");
-        this.limparObjetos();
+        boolean cadastrou = validarResponseEntity(this.campanhaService.cadastrarCampanha(this.campanha));
+        if (cadastrou) adicionarMensagemDeSucesso("Campanha cadastrada com sucesso!");
+        else adicionarMensagemDeErro();
+        this.limparListaCampanhas();
         fecharDialogo("dlgCadastroCampanha");
     }
 
-    public void limparObjetos() {
+    public void limparListaCampanhas() {
         this.campanha = new Campanha();
         this.listaDeCampanhas = this.campanhaService.listarCampanhasAtivas().getBody();
     }
@@ -79,15 +80,21 @@ public class CampanhaView implements Serializable {
         if (statusListaCampanhas) campanhasResponseEntity = this.campanhaService.listarCampanhasAtivas();
         else campanhasResponseEntity = this.campanhaService.listarCampanhasInativas();
 
-        this.listaDeCampanhas = validarRespostaListaCampanhas(campanhasResponseEntity)
+        this.listaDeCampanhas = validarResponseEntity(campanhasResponseEntity)
                 ? campanhasResponseEntity.getBody() : new ArrayList<>();
     }
 
-    private boolean validarRespostaListaCampanhas(ResponseEntity<List<Campanha>> campanhasResponseEntity) {
-        if (campanhasResponseEntity.getStatusCodeValue() != 200
-                || objetoEstarNuloOuVazio(campanhasResponseEntity.getBody())) {
-            return adicionarMensagemDeErro("Ocorreu um erro");
-        }
-        return true;
+    private void popularCampanhaPorId() {
+        ResponseEntity<Campanha> campanhaResponseEntity = this.campanhaService
+                .buscarCampanhaPorId(this.campanha.getId());
+        if (validarResponseEntity(campanhaResponseEntity)) this.campanha = campanhaResponseEntity.getBody();
+        else this.campanha = new Campanha();
+    }
+
+    public void finalizarCampanha() {
+        boolean atualizou = validarResponseEntityAtualizacao(this.campanhaService.finalizarCampanha(campanha.getId()));
+        if (atualizou) adicionarMensagemDeSucesso("Campanha Finalizada!");
+        else adicionarMensagemDeErro();
+        this.limparListaCampanhas();
     }
 }
