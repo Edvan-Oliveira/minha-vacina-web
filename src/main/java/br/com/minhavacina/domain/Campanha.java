@@ -2,6 +2,7 @@ package br.com.minhavacina.domain;
 
 import lombok.Data;
 
+import java.time.LocalTime;
 import java.util.Date;
 
 @Data
@@ -16,6 +17,9 @@ public class Campanha {
     private Date dataFim;
     private Integer idadeMinima;
     private Integer idadeMaxima;
+    private LocalTime horarioInicioDia;
+    private LocalTime horarioFimDia;
+    private String local;
 
     public Campanha() {
         this.vacina = new Vacina();

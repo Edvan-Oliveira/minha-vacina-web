@@ -3,6 +3,7 @@ package br.com.minhavacina.view;
 import br.com.minhavacina.domain.Campanha;
 import br.com.minhavacina.domain.Municipio;
 import br.com.minhavacina.domain.Vacina;
+import br.com.minhavacina.dto.HorariosCampanhaDTO;
 import br.com.minhavacina.service.CampanhaService;
 import lombok.Data;
 import org.springframework.http.ResponseEntity;
@@ -28,13 +29,14 @@ public class CampanhaView implements Serializable {
     private Campanha campanha;
     private List<Campanha> listaDeCampanhas;
     private boolean statusListaCampanhas;
-    private String texto;
+    private HorariosCampanhaDTO horariosCampanhaDTO;
 
     public CampanhaView() {
         this.campanhaService = new CampanhaService();
         this.campanha = new Campanha();
         this.listaDeCampanhas = new ArrayList<>();
         this.statusListaCampanhas = true;
+        this.horariosCampanhaDTO = new HorariosCampanhaDTO();
     }
 
     public void carregarDadosdaTela() {
@@ -44,6 +46,8 @@ public class CampanhaView implements Serializable {
     }
 
     public void cadastrarCampanha() {
+        if (!this.validarHorariosCampanha()) return;
+        this.horariosCampanhaDTO.popularHorarios(this.campanha);
         boolean cadastrou = validarResponseEntity(this.campanhaService.cadastrarCampanha(this.campanha));
         if (cadastrou) adicionarMensagemDeSucesso("Campanha cadastrada com sucesso!");
         else adicionarMensagemDeErro();
@@ -51,9 +55,30 @@ public class CampanhaView implements Serializable {
         fecharDialogo("dlgCadastroCampanha");
     }
 
+    public void abrirDialogoAtualizarCampanha() {
+        this.popularCampanhaPorId();
+        abrirDialogo("dlgAtualizaCampanha");
+    }
+
+    public void atualizarCampanha() {
+        if (!this.validarHorariosCampanha()) return;
+        this.horariosCampanhaDTO.popularHorarios(this.campanha);
+        boolean atualizou = validarResponseEntityAtualizacao(this.campanhaService.atualizarCampanha(this.campanha));
+        if (atualizou) adicionarMensagemDeSucesso("Campanha atualizada dom sucesso!");
+        else adicionarMensagemDeErro();
+        this.limparListaCampanhas();
+        fecharDialogo("dlgAtualizaCampanha");
+    }
+
+    public boolean validarHorariosCampanha() {
+        if (this.horariosCampanhaDTO.validarHorarios()) return true;
+        return adicionarMensagemDeErro("Hora campanha inválida!");
+    }
+
     public void limparListaCampanhas() {
         this.campanha = new Campanha();
-        this.listaDeCampanhas = this.campanhaService.listarCampanhasAtivas().getBody();
+        this.horariosCampanhaDTO = new HorariosCampanhaDTO();
+        this.eventoAjaxListarCampanhasAtivasOuInativas();
     }
 
     public String formatarDataParaVisualizacao(String data) {
@@ -87,8 +112,12 @@ public class CampanhaView implements Serializable {
     private void popularCampanhaPorId() {
         ResponseEntity<Campanha> campanhaResponseEntity = this.campanhaService
                 .buscarCampanhaPorId(this.campanha.getId());
-        if (validarResponseEntity(campanhaResponseEntity)) this.campanha = campanhaResponseEntity.getBody();
-        else this.campanha = new Campanha();
+        if (validarResponseEntity(campanhaResponseEntity)) {
+            this.campanha = campanhaResponseEntity.getBody();
+            this.horariosCampanhaDTO.popularHorariosTextos(this.campanha);
+        } else {
+            this.campanha = new Campanha();
+        }
     }
 
     public void finalizarCampanha() {
@@ -96,5 +125,6 @@ public class CampanhaView implements Serializable {
         if (atualizou) adicionarMensagemDeSucesso("Campanha Finalizada!");
         else adicionarMensagemDeErro();
         this.limparListaCampanhas();
+        this.statusListaCampanhas = false;
     }
 }

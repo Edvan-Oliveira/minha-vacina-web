@@ -14,7 +14,7 @@
 }
 
 .campo-descricao{
-    height: 150px;
+    height: 100px;
     max-height: 150px;
     overflow: auto;
     width: 100%;
@@ -47,7 +47,7 @@ div.componente-flex label.ui-selectonemenu-label {
 }
 
 .agrupar-opicional {
-    margin-top: 15px;
+    margin: 15px 0px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -55,10 +55,11 @@ div.componente-flex label.ui-selectonemenu-label {
     width: 100%;
 }
 
-.campo.-opcional .ui-widget-header,
+.campo-opcional .ui-widget-header,
 .campo-opcional .ui-inputfield,
 .campo-opcional .ui-widget-content .ui-inputfield {
     text-align: center;
+    width: 160px;
 }
 
 .botoes-dialogo {
@@ -66,8 +67,12 @@ div.componente-flex label.ui-selectonemenu-label {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 40px auto 0px auto;
+    margin: 25px auto 0px auto;
     overflow: auto;
+}
+
+body .ui-dialog .ui-dialog-content {
+    padding-bottom: 20px;
 }
 
 .botao-cancelar span {

@@ -25,10 +25,10 @@
         <h:form id="formFiltroCampanhas">
             <div class="filtro-campanhas">
                 <div class="label-filtro">
-                    <p:outputLabel value="Filtrar campanhas: "/>
+                    <p:outputLabel for="statusFiltroCampanhas" value="Filtrar campanhas: "/>
                 </div>
 
-                <p:selectOneRadio value="#{campanhaView.statusListaCampanhas}">
+                <p:selectOneRadio id="statusFiltroCampanhas" value="#{campanhaView.statusListaCampanhas}">
                     <f:selectItem itemValue="#{true}" itemLabel="Ativas"/>
                     <f:selectItem itemValue="#{false}" itemLabel="Inativas"/>
                     <p:ajax listener="#{campanhaView.eventoAjaxListarCampanhasAtivasOuInativas}"
@@ -79,7 +79,9 @@
                 </p:column>
 
                 <p:column headerText="Editar">
-                    <p:commandButton icon="fa fa-pencil" styleClass="icone-editar">
+                    <p:commandButton icon="fa fa-pencil" styleClass="icone-editar"
+                                     update=":formAtualizaCampanha"
+                                     action="#{campanhaView.abrirDialogoAtualizarCampanha}">
                         <f:setPropertyActionListener target="#{campanhaView.campanha.id}" value="#{campanha.id}"/>
                     </p:commandButton>
                 </p:column>
@@ -102,14 +104,16 @@
               header="Cadastro de Campanha" closable="false">
         <h:form id="formCadastroCampanha">
             <p:outputPanel styleClass="agrupamento-input">
-                <p:outputLabel for="nome" value="Nome" styleClass="margin-label-bottom"/>
-                <p:inputText id="nome" size="153" required="true" requiredMessage="Nome da campanha é obrigatório"
+                <p:outputLabel for="nomeCadastro" value="Nome" styleClass="margin-label-bottom"/>
+                <p:inputText id="nomeCadastro" size="153" required="true"
+                             requiredMessage="Nome da campanha é obrigatório"
                              value="#{campanhaView.campanha.nome}"/>
             </p:outputPanel>
             <p:outputPanel styleClass="agrupamento-input">
                 <p:outputPanel>
-                    <p:outputLabel for="descricao" value="Descrição" styleClass="margin-label-bottom"/>
-                    <p:inputTextarea id="descricao" autoResize="true" styleClass="campo-descricao" required="true"
+                    <p:outputLabel for="descricaoCadastro" value="Descrição" styleClass="margin-label-bottom"/>
+                    <p:inputTextarea id="descricaoCadastro" autoResize="true" styleClass="campo-descricao"
+                                     required="true"
                                      requiredMessage="Descrição da campanha é obrigatório"
                                      value="#{campanhaView.campanha.descricao}"/>
                 </p:outputPanel>
@@ -144,7 +148,8 @@
                 <div class="campo-opcional">
                     <p:outputLabel for="dataInicioCadastro" value="Data de inicío" styleClass="margin-label-bottom"/>
                     <p:calendar id="dataInicioCadastro" showOn="button" pattern="dd/MM/yyyy" mask="99/99/9999"
-                                placeholder="__/__/____" size="20" value="#{campanhaView.campanha.dataInicio}"/>
+                                placeholder="__/__/____" size="20" value="#{campanhaView.campanha.dataInicio}"
+                                required="true" requiredMessage="Data de inicío é obrigatória"/>
                 </div>
 
                 <div class="campo-opcional">
@@ -160,21 +165,142 @@
                     <p:outputLabel for="idadeMaximaCadastro" value="Idade máxima" styleClass="margin-label-bottom"/>
                     <p:spinner id="idadeMaximaCadastro" size="15" value="#{campanhaView.campanha.idadeMaxima}" min="0"/>
                 </div>
+                <div class="campo-opcional">
+                    <p:outputLabel for="horarioInicioDiaCadastro" value="Hora abertura"
+                                   styleClass="margin-label-bottom"/>
+                    <p:inputMask id="horarioInicioDiaCadastro" size="15" mask="99:99" required="true"
+                                 requiredMessage="Hora abertura é obrigatório"
+                                 value="#{campanhaView.horariosCampanhaDTO.horarioInicioDiaTexto}"/>
+                </div>
+                <div class="campo-opcional">
+                    <p:outputLabel for="horarioFimDiaCadastro" value="Hora fechamento"
+                                   styleClass="margin-label-bottom"/>
+                    <p:inputMask id="horarioFimDiaCadastro" size="15" mask="99:99" required="true"
+                                 requiredMessage="Hora fechamento é obrigatório"
+                                 value="#{campanhaView.horariosCampanhaDTO.horarioFimDiaTexto}"/>
+                </div>
             </div>
+
+            <p:outputPanel styleClass="agrupamento-input">
+                <p:outputLabel for="localCadastro" value="Local" styleClass="margin-label-bottom"/>
+                <p:inputText id="localCadastro" size="153" required="true" value="#{campanhaView.campanha.local}"
+                             requiredMessage="Local da campanha é obrigatório"/>
+            </p:outputPanel>
 
             <div class="botoes-dialogo  ">
                 <p:commandButton icon="fa fa-close" value="Cancelar" styleClass="botao-cancelar"
                                  onclick="PF('dlgCadastroCampanha').hide()">
                     <p:ajax resetValues="true" update="@form"/>
                 </p:commandButton>
-                <p:commandButton icon="fa fa-save" value="Gravar" styleClass="botao-gravar"
+                <p:commandButton icon="fa fa-save" value="Cadastrar" styleClass="botao-gravar"
                                  action="#{campanhaView.cadastrarCampanha}"
                                  update="@form, mensagem, :formTabCampanhas:tabCampanhas"/>
             </div>
         </h:form>
     </p:dialog>
 
-    <p:dialog id="dlgConfirmacaoFinalizarCampanha" widgetVar="dlgConfirmacaoFinalizarCampanha" modal="true" closable="false"
+    <p:dialog id="dlgAtualizaCampanha" widgetVar="dlgAtualizaCampanha" modal="true" resizable="false"
+              header="Editar Campanha" closable="false">
+        <h:form id="formAtualizaCampanha">
+            <p:outputPanel styleClass="agrupamento-input">
+                <p:outputLabel for="nomeAtualiza" value="Nome" styleClass="margin-label-bottom"/>
+                <p:inputText id="nomeAtualiza" size="153" required="true"
+                             requiredMessage="Nome da campanha é obrigatório"
+                             value="#{campanhaView.campanha.nome}"/>
+            </p:outputPanel>
+            <p:outputPanel styleClass="agrupamento-input">
+                <p:outputPanel>
+                    <p:outputLabel for="descricaoAtualiza" value="Descrição" styleClass="margin-label-bottom"/>
+                    <p:inputTextarea id="descricaoAtualiza" autoResize="true" styleClass="campo-descricao"
+                                     required="true"
+                                     requiredMessage="Descrição da campanha é obrigatório"
+                                     value="#{campanhaView.campanha.descricao}"/>
+                </p:outputPanel>
+            </p:outputPanel>
+
+            <div class="agrupar-select">
+                <div class="componente-flex">
+                    <p:outputLabel for="municipioAtualiza" value="Município" styleClass="margin-label-bottom"/>
+                    <p:selectOneMenu id="municipioAtualiza" filter="true" styleClass="selects"
+                                     filterMatchMode="contains" required="true"
+                                     requiredMessage="Município da campanha é obrigatório"
+                                     value="#{campanhaView.campanha.municipio.id}">
+                        <f:selectItem itemLabel="Selecione um município" itemValue="#{null}"/>
+                        <f:selectItems value="#{campanhaView.listaDeMunicipios}" var="municipio"
+                                       itemLabel="#{municipio.nome}" itemValue="#{municipio.id}"/>
+                    </p:selectOneMenu>
+                </div>
+
+                <div class="componente-flex">
+                    <p:outputLabel for="vacinaAtualiza" value="Vacina" styleClass="margin-label-bottom"/>
+                    <p:selectOneMenu id="vacinaAtualiza" styleClass="selects" filter="true" filterMatchMode="contains"
+                                     required="true" requiredMessage="Vacina da campanha é obrigatório"
+                                     value="#{campanhaView.campanha.vacina.id}">
+                        <f:selectItem itemLabel="Selecione uma vacina" itemValue="#{null}"/>
+                        <f:selectItems value="#{campanhaView.listaDeVacinas}" var="vacina" itemLabel="#{vacina.nome}"
+                                       itemValue="#{vacina.id}"/>
+                    </p:selectOneMenu>
+                </div>
+            </div>
+
+            <div class="agrupar-opicional">
+                <div class="campo-opcional">
+                    <p:outputLabel for="dataInicioAtualiza" value="Data de inicío" styleClass="margin-label-bottom"/>
+                    <p:calendar id="dataInicioAtualiza" showOn="button" pattern="dd/MM/yyyy" mask="99/99/9999"
+                                placeholder="__/__/____" size="20" value="#{campanhaView.campanha.dataInicio}"
+                                required="true" requiredMessage="Data de inicío é obrigatória"/>
+                </div>
+
+                <div class="campo-opcional">
+                    <p:outputLabel for="dataFimAtualiza" value="Data de término" styleClass="margin-label-bottom"/>
+                    <p:calendar id="dataFimAtualiza" showOn="button" pattern="dd/MM/yyyy" mask="99/99/9999"
+                                placeholder="__/__/____" size="20" value="#{campanhaView.campanha.dataFim}"/>
+                </div>
+                <div class="campo-opcional">
+                    <p:outputLabel for="idadeMinimaAtualiza" value="Idade mínima" styleClass="margin-label-bottom"/>
+                    <p:spinner id="idadeMinimaAtualiza" size="15" value="#{campanhaView.campanha.idadeMinima}" min="0"/>
+                </div>
+                <div class="campo-opcional">
+                    <p:outputLabel for="idadeMaximaAtualiza" value="Idade máxima" styleClass="margin-label-bottom"/>
+                    <p:spinner id="idadeMaximaAtualiza" size="15" value="#{campanhaView.campanha.idadeMaxima}" min="0"/>
+                </div>
+                <div class="campo-opcional">
+                    <p:outputLabel for="horarioInicioDiaAtualiza" value="Hora abertura"
+                                   styleClass="margin-label-bottom"/>
+                    <p:inputMask id="horarioInicioDiaAtualiza" size="15" mask="99:99" required="true"
+                                 requiredMessage="Hora abertura é obrigatório"
+                                 value="#{campanhaView.horariosCampanhaDTO.horarioInicioDiaTexto}"/>
+                </div>
+                <div class="campo-opcional">
+                    <p:outputLabel for="horarioFimDiaAtualiza" value="Hora fechamento"
+                                   styleClass="margin-label-bottom"/>
+                    <p:inputMask id="horarioFimDiaAtualiza" size="15" mask="99:99" required="true"
+                                 requiredMessage="Hora fechamento é obrigatório"
+                                 value="#{campanhaView.horariosCampanhaDTO.horarioFimDiaTexto}"/>
+                </div>
+            </div>
+
+            <p:outputPanel styleClass="agrupamento-input">
+                <p:outputLabel for="localAtualiza" value="Local" styleClass="margin-label-bottom"/>
+                <p:inputText id="localAtualiza" size="153" required="true" value="#{campanhaView.campanha.local}"
+                             requiredMessage="Local da campanha é obrigatório"/>
+            </p:outputPanel>
+
+            <div class="botoes-dialogo">
+                <p:commandButton icon="fa fa-close" value="Cancelar" styleClass="botao-cancelar"
+                                 onclick="PF('dlgAtualizaCampanha').hide()">
+                    <p:ajax resetValues="true" update="@form"/>
+                </p:commandButton>
+                <p:commandButton icon="fa fa-save" value="Atualizar" styleClass="botao-gravar"
+                                 action="#{campanhaView.atualizarCampanha}"
+                                 update="@form, mensagem, :formTabCampanhas:tabCampanhas,
+                                            :formFiltroCampanhas:statusFiltroCampanhas"/>
+            </div>
+        </h:form>
+    </p:dialog>
+
+    <p:dialog id="dlgConfirmacaoFinalizarCampanha" widgetVar="dlgConfirmacaoFinalizarCampanha" modal="true"
+              closable="false"
               header="Deseja realmente finalizar a campanha?" resizable="false">
         <h:form id="formConfirmaFinalizarCampanha">
             <div class="botoes-dialogo  ">
