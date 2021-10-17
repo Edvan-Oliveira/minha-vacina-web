@@ -201,54 +201,59 @@
     </p:dialog>
 
     <p:dialog id="dlgDetalheCampanha" widgetVar="dlgDetalheCampanha" modal="true" resizable="false"
-              header="Detalhes da Campanha" closable="false" draggable="false" responsive="true">
+              header="Detalhes da Campanha" closable="false" draggable="false" responsive="true"
+              position="center" onShow="PF('dlgDetalheCampanha').initPosition()">
 
         <h:form id="formDetalheCampanha">
             <div class="container-detalhe">
-                <div class="titulo-detalhe">
-                    <p:outputLabel value="#{campanhaView.campanha.nome}"/>
-                </div>
+                <p:panelGrid columns="1">
+                    <p:column>
+                        <p:outputLabel value="Nome: #{campanhaView.campanha.nome}"/>
+                    </p:column>
 
-                <div class="descricao-detalhe">
-                    <p:outputLabel value="#{campanhaView.campanha.descricao}"/>
-                </div>
+                    <p:column>
+                        <div class="descricao-detalhe">
+                            <p:outputLabel value="Descrição: #{campanhaView.campanha.descricao}"/>
+                        </div>
+                    </p:column>
 
-                <div class="municipio-detalhe">
-                    <p:outputLabel value="Municipio: #{campanhaView.campanha.municipio.nome}"/>
-                </div>
+                    <p:column>
+                        <p:outputLabel value="Municipio: #{campanhaView.campanha.municipio.nome}"/>
+                    </p:column>
 
-                <div class="vacina-detalhe">
-                    <p:outputLabel value="Vacina: #{campanhaView.campanha.vacina.nome}"/>
-                </div>
+                    <p:column>
+                        <p:outputLabel value="Vacina: #{campanhaView.campanha.vacina.nome}"/>
+                    </p:column>
 
-                <div>
-                    <p:outputLabel value="Período: "/>
-                    <p:outputLabel value="#{campanhaView.campanha.dataFim}"
-                                   rendered="#{campanhaView.campanha.dataInicio != null}">
-                        <f:convertDateTime pattern="yyyy-MM-dd"/>
-                    </p:outputLabel>
+                    <p:column>
+                        <p:outputLabel value="Período: "/>
+                        <p:outputLabel value="#{campanhaView.campanha.dataFim}"
+                                       rendered="#{campanhaView.campanha.dataInicio != null}">
+                            <f:convertDateTime pattern="yyyy-MM-dd"/>
+                        </p:outputLabel>
 
-                    <p:outputLabel value=" - "/>
+                        <p:outputLabel value=" - "/>
 
-                    <p:outputLabel value="#{campanhaView.campanha.dataFim}"
-                                   rendered="#{campanhaView.campanha.dataFim != null}">
-                        <f:convertDateTime pattern="yyyy-MM-dd"/>
-                    </p:outputLabel>
-                </div>
+                        <p:outputLabel value="#{campanhaView.campanha.dataFim}"
+                                       rendered="#{campanhaView.campanha.dataFim != null}">
+                            <f:convertDateTime pattern="yyyy-MM-dd"/>
+                        </p:outputLabel>
+                    </p:column>
 
-                <div>
-                    <p:outputLabel value="Horários: #{campanhaView.campanha.horarioInicioDia} -
+                    <p:column>
+                        <p:outputLabel value="Horários: #{campanhaView.campanha.horarioInicioDia} -
                             #{campanhaView.campanha.horarioFimDia}"/>
-                </div>
+                    </p:column>
 
-                <div class="idade-detalhe">
-                    <p:outputLabel value="Idade: #{campanhaView.campanha.idadeMinima} -
+                    <p:column>
+                        <p:outputLabel value="Idade: #{campanhaView.campanha.idadeMinima} -
                             #{campanhaView.campanha.idadeMaxima}"/>
-                </div>
+                    </p:column>
 
-                <div>
-                    <p:outputLabel value="Localidade: #{campanhaView.campanha.local}"/>
-                </div>
+                    <p:column>
+                        <p:outputLabel value="Localidade: #{campanhaView.campanha.local}"/>
+                    </p:column>
+                </p:panelGrid>
             </div>
 
             <div class="botao-detalhe">
