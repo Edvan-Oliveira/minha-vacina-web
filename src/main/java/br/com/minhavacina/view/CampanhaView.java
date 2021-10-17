@@ -55,6 +55,13 @@ public class CampanhaView implements Serializable {
         fecharDialogo("dlgCadastroCampanha");
     }
 
+    public void abrirDialogoDetalheCampanha() {
+        this.popularCampanhaPorId();
+        abrirDialogo("dlgDetalheCampanha");
+    }
+
+
+
     public void abrirDialogoAtualizarCampanha() {
         this.popularCampanhaPorId();
         abrirDialogo("dlgAtualizaCampanha");

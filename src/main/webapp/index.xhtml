@@ -73,7 +73,8 @@
                 </p:column>
 
                 <p:column headerText="Detalhes">
-                    <p:commandButton icon="fa fa-align-justify" styleClass="icone-detalhe">
+                    <p:commandButton icon="fa fa-align-justify" styleClass="icone-detalhe" update="formDetalheCampanha"
+                                     action="#{campanhaView.abrirDialogoDetalheCampanha}">
                         <f:setPropertyActionListener target="#{campanhaView.campanha.id}" value="#{campanha.id}"/>
                     </p:commandButton>
                 </p:column>
@@ -169,14 +170,14 @@
                     <p:outputLabel for="horarioInicioDiaCadastro" value="Hora abertura"
                                    styleClass="margin-label-bottom"/>
                     <p:inputMask id="horarioInicioDiaCadastro" size="15" mask="99:99" required="true"
-                                 requiredMessage="Hora abertura é obrigatório"
+                                 requiredMessage="Hora abertura é obrigatório" placeholder="__:__"
                                  value="#{campanhaView.horariosCampanhaDTO.horarioInicioDiaTexto}"/>
                 </div>
                 <div class="campo-opcional">
                     <p:outputLabel for="horarioFimDiaCadastro" value="Hora fechamento"
                                    styleClass="margin-label-bottom"/>
                     <p:inputMask id="horarioFimDiaCadastro" size="15" mask="99:99" required="true"
-                                 requiredMessage="Hora fechamento é obrigatório"
+                                 requiredMessage="Hora fechamento é obrigatório" placeholder="__:__"
                                  value="#{campanhaView.horariosCampanhaDTO.horarioFimDiaTexto}"/>
                 </div>
             </div>
@@ -197,6 +198,65 @@
                                  update="@form, mensagem, :formTabCampanhas:tabCampanhas"/>
             </div>
         </h:form>
+    </p:dialog>
+
+    <p:dialog id="dlgDetalheCampanha" widgetVar="dlgDetalheCampanha" modal="true" resizable="false"
+              header="Detalhes da Campanha" closable="false" draggable="false" responsive="true">
+
+        <h:form id="formDetalheCampanha">
+            <div class="container-detalhe">
+                <div class="titulo-detalhe">
+                    <p:outputLabel value="#{campanhaView.campanha.nome}"/>
+                </div>
+
+                <div class="descricao-detalhe">
+                    <p:outputLabel value="#{campanhaView.campanha.descricao}"/>
+                </div>
+
+                <div class="municipio-detalhe">
+                    <p:outputLabel value="Municipio: #{campanhaView.campanha.municipio.nome}"/>
+                </div>
+
+                <div class="vacina-detalhe">
+                    <p:outputLabel value="Vacina: #{campanhaView.campanha.vacina.nome}"/>
+                </div>
+
+                <div>
+                    <p:outputLabel value="Período: "/>
+                    <p:outputLabel value="#{campanhaView.campanha.dataFim}"
+                                   rendered="#{campanhaView.campanha.dataInicio != null}">
+                        <f:convertDateTime pattern="yyyy-MM-dd"/>
+                    </p:outputLabel>
+
+                    <p:outputLabel value=" - "/>
+
+                    <p:outputLabel value="#{campanhaView.campanha.dataFim}"
+                                   rendered="#{campanhaView.campanha.dataFim != null}">
+                        <f:convertDateTime pattern="yyyy-MM-dd"/>
+                    </p:outputLabel>
+                </div>
+
+                <div>
+                    <p:outputLabel value="Horários: #{campanhaView.campanha.horarioInicioDia} -
+                            #{campanhaView.campanha.horarioFimDia}"/>
+                </div>
+
+                <div class="idade-detalhe">
+                    <p:outputLabel value="Idade: #{campanhaView.campanha.idadeMinima} -
+                            #{campanhaView.campanha.idadeMaxima}"/>
+                </div>
+
+                <div>
+                    <p:outputLabel value="Localidade: #{campanhaView.campanha.local}"/>
+                </div>
+            </div>
+
+            <div class="botao-detalhe">
+                <p:commandButton value="Fechar" icon="fa fa-close" onclick="PF('dlgDetalheCampanha').hide()"/>
+            </div>
+        </h:form>
+
+
     </p:dialog>
 
     <p:dialog id="dlgAtualizaCampanha" widgetVar="dlgAtualizaCampanha" modal="true" resizable="false"
@@ -275,7 +335,7 @@
                     <p:outputLabel for="horarioFimDiaAtualiza" value="Hora fechamento"
                                    styleClass="margin-label-bottom"/>
                     <p:inputMask id="horarioFimDiaAtualiza" size="15" mask="99:99" required="true"
-                                 requiredMessage="Hora fechamento é obrigatório"
+                                 requiredMessage="Hora fechamento é obrigatório" placeholder="__:__"
                                  value="#{campanhaView.horariosCampanhaDTO.horarioFimDiaTexto}"/>
                 </div>
             </div>
@@ -283,7 +343,7 @@
             <p:outputPanel styleClass="agrupamento-input">
                 <p:outputLabel for="localAtualiza" value="Local" styleClass="margin-label-bottom"/>
                 <p:inputText id="localAtualiza" size="153" required="true" value="#{campanhaView.campanha.local}"
-                             requiredMessage="Local da campanha é obrigatório"/>
+                             requiredMessage="Local da campanha é obrigatório" placeholder="__:__"/>
             </p:outputPanel>
 
             <div class="botoes-dialogo">

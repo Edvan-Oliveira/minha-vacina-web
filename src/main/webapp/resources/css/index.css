@@ -13,7 +13,7 @@
     margin-bottom: 15px;
 }
 
-.campo-descricao{
+.campo-descricao {
     height: 100px;
     max-height: 150px;
     overflow: auto;
@@ -86,12 +86,12 @@ body .ui-dialog .ui-dialog-content {
 }
 
 .botoes-dialogo .ui-button,
-.botoes-dialogo .ui-button{
+.botoes-dialogo .ui-button {
     border: none;
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
 }
 
-.botoes-dialogo .ui-button.ui-button-text-icon-left .ui-button-text{
+.botoes-dialogo .ui-button.ui-button-text-icon-left .ui-button-text {
     border-radius: 5px;
     width: 150px;
 }
@@ -106,7 +106,7 @@ body .ui-datatable thead th {
 }
 
 .tabela-campanhas .ui-button {
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .icone-remover .ui-button, .icone-remover .ui-button-text,
@@ -154,4 +154,33 @@ body .ui-datatable thead th {
 
 .label-filtro {
     margin-right: 10px;
+}
+
+.botao-detalhe {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-detalhe {
+    max-width: 100vw;
+    max-height: 70vh;
+}
+
+.titulo-detalhe {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.descricao-detalhe {
+    margin-bottom: 20px;
+}
+
+.municipio-detalhe {
+}
+
+.vacina-detalhe, .idade-detalhe {
+    margin-bottom: 10px;
 }

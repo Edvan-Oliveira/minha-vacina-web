@@ -10,7 +10,7 @@ public class Vacina {
     private Integer id;
     private String nome;
     private String descricao;
-    private String caminhoImagem;
+    private String imagem;
     private List<Campanha> campanhas;
 
     public Vacina() {
