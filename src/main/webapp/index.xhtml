@@ -218,7 +218,7 @@
                     </p:column>
 
                     <p:column>
-                        <p:outputLabel value="Municipio: #{campanhaView.campanha.municipio.nome}"/>
+                        <p:outputLabel value="Município: #{campanhaView.campanha.municipio.nome}"/>
                     </p:column>
 
                     <p:column>
@@ -265,7 +265,8 @@
     </p:dialog>
 
     <p:dialog id="dlgAtualizaCampanha" widgetVar="dlgAtualizaCampanha" modal="true" resizable="false"
-              header="Editar Campanha" closable="false">
+              header="Editar Campanha" closable="false" responsive="true"
+              position="center" onShow="PF('dlgDetalheCampanha').initPosition()">
         <h:form id="formAtualizaCampanha">
             <p:outputPanel styleClass="agrupamento-input">
                 <p:outputLabel for="nomeAtualiza" value="Nome" styleClass="margin-label-bottom"/>
