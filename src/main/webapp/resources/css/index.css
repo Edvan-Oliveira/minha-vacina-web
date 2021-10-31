@@ -175,4 +175,10 @@ body .ui-datatable thead th {
     overflow: auto;
 }
 
+.pesquisa-endereco {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 

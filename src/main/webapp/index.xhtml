@@ -19,7 +19,6 @@
 
     <p:growl id="mensagem"/>
 
-
     <div class="nova-campanha-filtro-ativas-inativas">
         <p:commandButton icon="fa fa-plus" value="Nova Campanha" onclick="PF('dlgCadastroCampanha').show()"/>
         <h:form id="formFiltroCampanhas">
@@ -102,7 +101,7 @@
     </div>
 
     <p:dialog id="dlgCadastroCampanha" widgetVar="dlgCadastroCampanha" modal="true" resizable="false"
-              header="Cadastro de Campanha" closable="false" height="80vh">
+              header="Cadastro de Campanha" closable="false" height="80vh" width="90vw">
         <h:form id="formCadastroCampanha">
             <p:outputPanel styleClass="agrupamento-input">
                 <p:outputLabel for="nomeCadastro" value="Nome" styleClass="margin-label-bottom"/>
@@ -182,12 +181,27 @@
                 </div>
             </div>
 
-            <p:outputPanel styleClass="agrupamento-input">
-                <p:outputLabel for="localCadastro" value="Local" styleClass="margin-label-bottom"/>
-                <p:inputText id="localCadastro" size="153" required="true"
-                             requiredMessage="Local da campanha é obrigatório"/>
+            <p:outputPanel>
+                <p:outputLabel for="localCadastro" value="Pesquise um local" styleClass="margin-label-bottom"/>
+                <div class="pesquisa-endereco">
+                    <div>
+                        <p:autoComplete id="localCadastro" size="110"/>
+                        <p:commandButton icon="fa fa-check" value="Adicionar" style="margin-left: 30px;"/>
+                    </div>
+                    <p:commandButton icon="fa fa-plus" value="Novo Local" style="margin-left: 10px;"/>
+                </div>
             </p:outputPanel>
 
+            <p:outputPanel id="panelTabLocais" style="margin-top: 25px;">
+                <p:dataTable id="tabLocais" widgetVar="tabLocais"
+                             emptyMessage="Nenhum endereço adicionado" scrollHeight="250">
+                    <p:column headerText="Descrição"></p:column>
+                    <p:column headerText="CEP"></p:column>
+                    <p:column headerText="Bairro"></p:column>
+                    <p:column headerText="Rua"></p:column>
+                    <p:column headerText="Número"></p:column>
+                </p:dataTable>
+            </p:outputPanel>
 
             <div class="botoes-dialogo">
                 <p:commandButton icon="fa fa-close" value="Cancelar" styleClass="botao-cancelar"
@@ -379,6 +393,12 @@
                                  update=":formTabCampanhas:tabCampanhas, mensagem, :formTabCampanhas:tabCampanhas"/>
             </div>
         </h:form>
+    </p:dialog>
+
+    <p:dialog id="dlgAdicionaLocal" widgetVar="dlgAdicionaLocal" modal="true" closable="false" responsive="true"
+              resizable="false" header="Cadastro de Local">
+
+
     </p:dialog>
 </h:body>
 </html>
