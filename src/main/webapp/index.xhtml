@@ -102,7 +102,7 @@
     </div>
 
     <p:dialog id="dlgCadastroCampanha" widgetVar="dlgCadastroCampanha" modal="true" resizable="false"
-              header="Cadastro de Campanha" closable="false">
+              header="Cadastro de Campanha" closable="false" height="80vh">
         <h:form id="formCadastroCampanha">
             <p:outputPanel styleClass="agrupamento-input">
                 <p:outputLabel for="nomeCadastro" value="Nome" styleClass="margin-label-bottom"/>
@@ -184,11 +184,12 @@
 
             <p:outputPanel styleClass="agrupamento-input">
                 <p:outputLabel for="localCadastro" value="Local" styleClass="margin-label-bottom"/>
-                <p:inputText id="localCadastro" size="153" required="true" value="#{campanhaView.campanha.local}"
+                <p:inputText id="localCadastro" size="153" required="true"
                              requiredMessage="Local da campanha é obrigatório"/>
             </p:outputPanel>
 
-            <div class="botoes-dialogo  ">
+
+            <div class="botoes-dialogo">
                 <p:commandButton icon="fa fa-close" value="Cancelar" styleClass="botao-cancelar"
                                  onclick="PF('dlgCadastroCampanha').hide()">
                     <p:ajax resetValues="true" update="@form"/>
@@ -251,7 +252,7 @@
                     </p:column>
 
                     <p:column>
-                        <p:outputLabel value="Localidade: #{campanhaView.campanha.local}"/>
+                        <p:outputLabel value="Localidade: ---"/>
                     </p:column>
                 </p:panelGrid>
             </div>
@@ -348,7 +349,7 @@
 
             <p:outputPanel styleClass="agrupamento-input">
                 <p:outputLabel for="localAtualiza" value="Local" styleClass="margin-label-bottom"/>
-                <p:inputText id="localAtualiza" size="153" required="true" value="#{campanhaView.campanha.local}"
+                <p:inputText id="localAtualiza" size="153" required="true"
                              requiredMessage="Local da campanha é obrigatório" placeholder="__:__"/>
             </p:outputPanel>
 

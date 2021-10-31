@@ -3,7 +3,9 @@ package br.com.minhavacina.domain;
 import lombok.Data;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class Campanha {
@@ -19,10 +21,11 @@ public class Campanha {
     private Integer idadeMaxima;
     private LocalTime horarioInicioDia;
     private LocalTime horarioFimDia;
-    private String local;
+    private List<Local> locais;
 
     public Campanha() {
         this.vacina = new Vacina();
         this.municipio = new Municipio();
+        this.locais = new ArrayList<>();
     }
 }
