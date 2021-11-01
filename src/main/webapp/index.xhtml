@@ -10,6 +10,8 @@
 <h:head>
     <h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/all.min-jsf.css"/>
     <h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/v4-shims.min-jsf.css"/>
+    <h:outputStylesheet library="webjars" name="primeflex/2.0.0/primeflex.min.css"/>
+    <h:outputStylesheet library="webjars" name="primeflex/2.0.0/primeflex.css"/>
     <h:outputStylesheet library="css" name="index.css"/>
 </h:head>
 <h:body>
@@ -188,7 +190,8 @@
                         <p:autoComplete id="localCadastro" size="110"/>
                         <p:commandButton icon="fa fa-check" value="Adicionar" style="margin-left: 30px;"/>
                     </div>
-                    <p:commandButton icon="fa fa-plus" value="Novo Local" style="margin-left: 10px;"/>
+                    <p:commandButton icon="fa fa-plus" value="Novo Local" style="margin-left: 10px;"
+                                     onclick="PF('dlgNovoLocal').show()"/>
                 </div>
             </p:outputPanel>
 
@@ -395,9 +398,14 @@
         </h:form>
     </p:dialog>
 
-    <p:dialog id="dlgAdicionaLocal" widgetVar="dlgAdicionaLocal" modal="true" closable="false" responsive="true"
-              resizable="false" header="Cadastro de Local">
+    <p:dialog id="dlgNovoLocal" widgetVar="dlgNovoLocal" modal="true" closable="false" responsive="true"
+              resizable="false" header="Cadastro de Local" width="70%">
 
+        <div class="ui-fluid p-formgrid p-grid">
+            <div class="p-field p-col-12 p-md-12">
+
+            </div>
+        </div>
 
     </p:dialog>
 </h:body>

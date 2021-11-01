@@ -51,5 +51,6 @@
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.13" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-simple:1.7.13" level="project" />
     <orderEntry type="library" name="Maven: org.webjars:font-awesome:5.12.0" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars.npm:primeflex:2.0.0" level="project" />
   </component>
 </module>
