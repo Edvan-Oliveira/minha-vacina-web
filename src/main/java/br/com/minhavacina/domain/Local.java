@@ -2,6 +2,7 @@ package br.com.minhavacina.domain;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -14,4 +15,9 @@ public class Local {
     private String numero;
     private Municipio municipio;
     private List<Campanha> campanhas;
+
+    public Local() {
+        municipio = new Municipio();
+        campanhas = new ArrayList<>();
+    }
 }

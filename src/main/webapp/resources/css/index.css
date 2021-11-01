@@ -181,4 +181,8 @@ body .ui-datatable thead th {
     justify-content: space-between;
 }
 
-
+.centro-texto-input .ui-widget-header,
+.centro-texto-input .ui-inputfield,
+.centro-texto-input .ui-widget-content .ui-inputfield {
+    text-align: center;
+}

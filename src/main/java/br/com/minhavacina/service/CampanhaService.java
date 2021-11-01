@@ -3,6 +3,7 @@ package br.com.minhavacina.service;
 import br.com.minhavacina.clientrest.ClienteRest;
 import br.com.minhavacina.clientrest.TipoAutenticacao;
 import br.com.minhavacina.domain.Campanha;
+import br.com.minhavacina.domain.Local;
 import br.com.minhavacina.domain.Municipio;
 import br.com.minhavacina.domain.Vacina;
 import org.springframework.http.ResponseEntity;
@@ -56,5 +57,13 @@ public class CampanhaService {
 
     public ResponseEntity<Void> finalizarCampanha(Integer id) {
         return clienteRest.chamarMetodoPut(FINALIZA_CAMPANHA + "/" + id, Campanha.class);
+    }
+
+    public ResponseEntity<Local> buscarLocalPorId(Integer id) {
+        return this.clienteRest.chamarMetodoGet(LOCAL + "/" + id, Local.class);
+    }
+
+    public ResponseEntity<List<Local>> listarLocaisPorDescricaoEMunicipio(Local local) {
+        return this.clienteRest.chamarMetodoPostListagem(LOCAL_POR_DESCRICAO, local);
     }
 }

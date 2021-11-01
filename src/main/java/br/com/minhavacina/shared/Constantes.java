@@ -10,5 +10,11 @@ public interface Constantes {
     String LOGIN = PADRAO + "/usuarios/login";
     String USUARIO = PADRAO + "/usuarios";
     String USUARIO_PELO_TOKEN = USUARIO + "/pelo-token";
+    String LOCAL = PADRAO + "/locais";
+    String LOCAL_POR_DESCRICAO = LOCAL + FILTROS.POR_DESCRICAO;
     String PERMISSAO_WEB = "ROLE_WEB";
+
+    interface FILTROS {
+        String POR_DESCRICAO = "/por-descricao";
+    }
 }

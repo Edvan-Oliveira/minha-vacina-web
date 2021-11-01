@@ -131,6 +131,7 @@
                         <f:selectItem itemLabel="Selecione um município" itemValue="#{null}"/>
                         <f:selectItems value="#{campanhaView.listaDeMunicipios}" var="municipio"
                                        itemLabel="#{municipio.nome}" itemValue="#{municipio.id}"/>
+                        <p:ajax process="@this"/>
                     </p:selectOneMenu>
                 </div>
 
@@ -187,7 +188,11 @@
                 <p:outputLabel for="localCadastro" value="Pesquise um local" styleClass="margin-label-bottom"/>
                 <div class="pesquisa-endereco">
                     <div>
-                        <p:autoComplete id="localCadastro" size="110"/>
+                        <p:autoComplete id="localCadastro" size="110" value="#{campanhaView.localEscolhido}"
+                                        converter="localConverter"
+                                        completeMethod="#{campanhaView.buscarLocaisPorDescricao}" var="local"
+                                        itemValue="#{local}" itemLabel="#{local.descricao}" minQueryLength="1"
+                                        scrollHeight="250"/>
                         <p:commandButton icon="fa fa-check" value="Adicionar" style="margin-left: 30px;"/>
                     </div>
                     <p:commandButton icon="fa fa-plus" value="Novo Local" style="margin-left: 10px;"
@@ -387,7 +392,7 @@
               closable="false"
               header="Deseja realmente finalizar a campanha?" resizable="false">
         <h:form id="formConfirmaFinalizarCampanha">
-            <div class="botoes-dialogo  ">
+            <div class="botoes-dialogo">
                 <p:commandButton icon="fa fa-close" value="Cancelar" styleClass="botao-gravar"
                                  onclick="PF('dlgConfirmacaoFinalizarCampanha').hide()"/>
                 <p:commandButton icon="fa fa-check" value="Finalizar" styleClass="botao-cancelar"
@@ -398,15 +403,39 @@
         </h:form>
     </p:dialog>
 
-    <p:dialog id="dlgNovoLocal" widgetVar="dlgNovoLocal" modal="true" closable="false" responsive="true"
+    <p:dialog id="dlgNovoLocal" widgetVar="dlgNovoLocal" modal="true" responsive="true" closable="false"
               resizable="false" header="Cadastro de Local" width="70%">
-
-        <div class="ui-fluid p-formgrid p-grid">
-            <div class="p-field p-col-12 p-md-12">
-
+        <h:form id="formNovoLocal">
+            <div class="ui-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-md-12">
+                    <p:outputLabel for="descricaoNovoLocal" value="Descrição"/>
+                    <p:inputText id="descricaoNovoLocal"/>
+                </div>
+                <div class="p-field p-col-12 p-md-2 centro-texto-input">
+                    <p:outputLabel for="cepNovoLocal" value="CEP"/>
+                    <p:inputMask id="cepNovoLocal" mask="99999-999"/>
+                </div>
+                <div class="p-field p-col-12 p-md-4">
+                    <p:outputLabel for="bairroNovoLocal" value="Bairro"/>
+                    <p:inputText id="bairroNovoLocal"/>
+                </div>
+                <div class="p-field p-col-12 p-md-4">
+                    <p:outputLabel for="ruaNovoLocal" value="Rua"/>
+                    <p:inputText id="ruaNovoLocal"/>
+                </div>
+                <div class="p-field p-col-12 p-md-2 centro-texto-input">
+                    <p:outputLabel for="numeroNovoLocal" value="Número"/>
+                    <p:inputText id="numeroNovoLocal"/>
+                </div>
             </div>
-        </div>
 
+            <div class="botoes-dialogo">
+                <p:commandButton icon="fa fa-close" value="Cancelar" styleClass="botao-cancelar"
+                                 onclick="PF('dlgNovoLocal').hide()"/>
+                <p:commandButton icon="fa fa-check" value="Cadastrar" styleClass="botao-gravar"
+                                 action="#{campanhaView.finalizarCampanha}"/>
+            </div>
+        </h:form>
     </p:dialog>
 </h:body>
 </html>

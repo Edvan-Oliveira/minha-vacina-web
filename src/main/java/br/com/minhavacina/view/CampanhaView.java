@@ -1,6 +1,7 @@
 package br.com.minhavacina.view;
 
 import br.com.minhavacina.domain.Campanha;
+import br.com.minhavacina.domain.Local;
 import br.com.minhavacina.domain.Municipio;
 import br.com.minhavacina.domain.Vacina;
 import br.com.minhavacina.dto.HorariosCampanhaDTO;
@@ -30,6 +31,7 @@ public class CampanhaView implements Serializable {
     private List<Campanha> listaDeCampanhas;
     private boolean statusListaCampanhas;
     private HorariosCampanhaDTO horariosCampanhaDTO;
+    private Local localEscolhido;
 
     public CampanhaView() {
         this.campanhaService = new CampanhaService();
@@ -37,6 +39,7 @@ public class CampanhaView implements Serializable {
         this.listaDeCampanhas = new ArrayList<>();
         this.statusListaCampanhas = true;
         this.horariosCampanhaDTO = new HorariosCampanhaDTO();
+        this.localEscolhido = new Local();
     }
 
     public void carregarDadosdaTela() {
@@ -59,8 +62,6 @@ public class CampanhaView implements Serializable {
         this.popularCampanhaPorId();
         abrirDialogo("dlgDetalheCampanha");
     }
-
-
 
     public void abrirDialogoAtualizarCampanha() {
         this.popularCampanhaPorId();
@@ -133,5 +134,13 @@ public class CampanhaView implements Serializable {
         else adicionarMensagemDeErro();
         this.limparListaCampanhas();
         this.statusListaCampanhas = false;
+    }
+
+    public List<Local> buscarLocaisPorDescricao(String descricao) {
+        Local local = new Local();
+        local.setDescricao(descricao);
+        local.setMunicipio(campanha.getMunicipio());
+        List<Local> body = this.campanhaService.listarLocaisPorDescricaoEMunicipio(local).getBody();
+        return body;
     }
 }
