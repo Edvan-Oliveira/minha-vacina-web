@@ -128,10 +128,10 @@
                                      filterMatchMode="contains" required="true"
                                      requiredMessage="Município da campanha é obrigatório"
                                      value="#{campanhaView.campanha.municipio.id}">
-                        <f:selectItem itemLabel="Selecione um município" itemValue="#{null}"/>
+                        <f:selectItem itemLabel="Selecione um município" itemDisabled="true"/>
                         <f:selectItems value="#{campanhaView.listaDeMunicipios}" var="municipio"
                                        itemLabel="#{municipio.nome}" itemValue="#{municipio.id}"/>
-                        <p:ajax process="@this"/>
+                        <p:ajax process="@this" update="@this localCadastro, btnAdicionaLocal, btnNovoLocal"/>
                     </p:selectOneMenu>
                 </div>
 
@@ -185,29 +185,50 @@
             </div>
 
             <p:outputPanel>
-                <p:outputLabel for="localCadastro" value="Pesquise um local" styleClass="margin-label-bottom"/>
+                <p:outputLabel for="localCadastro" value="Pesquise locais no município" styleClass="margin-label-bottom"/>
                 <div class="pesquisa-endereco">
                     <div>
                         <p:autoComplete id="localCadastro" size="110" value="#{campanhaView.localEscolhido}"
                                         converter="localConverter"
                                         completeMethod="#{campanhaView.buscarLocaisPorDescricao}" var="local"
                                         itemValue="#{local}" itemLabel="#{local.descricao}" minQueryLength="1"
-                                        scrollHeight="250"/>
-                        <p:commandButton icon="fa fa-check" value="Adicionar" style="margin-left: 30px;"/>
+                                        scrollHeight="250" disabled="#{campanhaView.campanha.municipio.id == null}"/>
+
+                        <p:commandButton id="btnAdicionaLocal" icon="fa fa-check" value="Adicionar"
+                                         style="margin-left: 30px;" action="#{campanhaView.adicionarLocalNaCampanha}"
+                                         process="@this localCadastro" update="mensagem localCadastro tabLocais"
+                                         disabled="#{campanhaView.campanha.municipio.id == null}"/>
                     </div>
-                    <p:commandButton icon="fa fa-plus" value="Novo Local" style="margin-left: 10px;"
-                                     onclick="PF('dlgNovoLocal').show()"/>
+                    <p:commandButton id="btnNovoLocal" icon="fa fa-plus" value="Novo Local" style="margin-left: 10px;"
+                                     onclick="PF('dlgNovoLocal').show()"
+                                     disabled="#{campanhaView.campanha.municipio.id == null}"/>
                 </div>
             </p:outputPanel>
 
             <p:outputPanel id="panelTabLocais" style="margin-top: 25px;">
-                <p:dataTable id="tabLocais" widgetVar="tabLocais"
-                             emptyMessage="Nenhum endereço adicionado" scrollHeight="250">
-                    <p:column headerText="Descrição"></p:column>
-                    <p:column headerText="CEP"></p:column>
-                    <p:column headerText="Bairro"></p:column>
-                    <p:column headerText="Rua"></p:column>
-                    <p:column headerText="Número"></p:column>
+                <p:dataTable id="tabLocais" widgetVar="tabLocais" value="#{campanhaView.campanha.locais}"
+                             var="local" emptyMessage="Adicione um ou mais locais" scrollHeight="250">
+                    <p:column headerText="Descrição">
+                        <p:outputLabel value="#{local.descricao}"/>
+                    </p:column>
+                    <p:column headerText="CEP">
+                        <p:outputLabel value="#{local.cep}"/>
+                    </p:column>
+                    <p:column headerText="Bairro">
+                        <p:outputLabel value="#{local.bairro}"/>
+                    </p:column>
+                    <p:column headerText="Rua">
+                        <p:outputLabel value="#{local.rua}"/>
+                    </p:column>
+                    <p:column headerText="Número">
+                        <p:outputLabel value="#{local.numero}"/>
+                    </p:column>
+                    <p:column headerText="Remover">
+                        <p:commandButton icon="fa fa-trash" update="tabLocais" process="@this"
+                                         action="#{campanhaView.removerLocalDaCampanha}">
+                            <f:setPropertyActionListener target="#{campanhaView.localEscolhido}" value="#{local}"/>
+                        </p:commandButton>
+                    </p:column>
                 </p:dataTable>
             </p:outputPanel>
 

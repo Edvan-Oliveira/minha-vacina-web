@@ -6,6 +6,7 @@ import br.com.minhavacina.domain.Municipio;
 import br.com.minhavacina.domain.Vacina;
 import br.com.minhavacina.dto.HorariosCampanhaDTO;
 import br.com.minhavacina.service.CampanhaService;
+import br.com.minhavacina.util.JSFUtil;
 import lombok.Data;
 import org.springframework.http.ResponseEntity;
 
@@ -142,5 +143,19 @@ public class CampanhaView implements Serializable {
         local.setMunicipio(campanha.getMunicipio());
         List<Local> body = this.campanhaService.listarLocaisPorDescricaoEMunicipio(local).getBody();
         return body;
+    }
+
+    public void adicionarLocalNaCampanha() {
+        if (this.campanha.getLocais().contains(this.localEscolhido)) {
+            adicionarMensagemDeErro("O endereço já está na lista");
+            return;
+        }
+        this.campanha.getLocais().add(this.localEscolhido);
+        this.localEscolhido = new Local();
+    }
+
+    public void removerLocalDaCampanha() {
+        this.campanha.getLocais().remove(this.localEscolhido);
+        this.localEscolhido = new Local();
     }
 }
