@@ -66,4 +66,8 @@ public class CampanhaService {
     public ResponseEntity<List<Local>> listarLocaisPorDescricaoEMunicipio(Local local) {
         return this.clienteRest.chamarMetodoPostListagem(LOCAL_POR_DESCRICAO, local);
     }
+
+    public ResponseEntity<Local> cadastrarNovoLocal(Local local) {
+        return this.clienteRest.chamarMetodoPost(LOCAL, local, Local.class);
+    }
 }

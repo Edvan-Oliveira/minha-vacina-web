@@ -146,16 +146,34 @@ public class CampanhaView implements Serializable {
     }
 
     public void adicionarLocalNaCampanha() {
-        if (this.campanha.getLocais().contains(this.localEscolhido)) {
-            adicionarMensagemDeErro("O endereço já está na lista");
-            return;
-        }
+        if (!validarFormularioAdicionaLocalNaCampanha()) return;
         this.campanha.getLocais().add(this.localEscolhido);
         this.localEscolhido = new Local();
+    }
+
+    private boolean validarFormularioAdicionaLocalNaCampanha() {
+        if (this.campanha.getLocais().contains(this.localEscolhido))
+            return adicionarMensagemDeAviso("O endereço já está na lista");
+        if (objetoEstarNuloOuVazio(this.localEscolhido))
+            return adicionarMensagemDeAviso("Escolha um posto para adicionar");
+        return true;
     }
 
     public void removerLocalDaCampanha() {
         this.campanha.getLocais().remove(this.localEscolhido);
         this.localEscolhido = new Local();
+    }
+
+    public void cadastrarNovoLocal() {
+        this.localEscolhido.setMunicipio(this.campanha.getMunicipio());
+        ResponseEntity<Local> localSalvo = this.campanhaService.cadastrarNovoLocal(this.localEscolhido);
+        if (validarResponseEntity(localSalvo)) {
+            adicionarMensagemDeSucesso("Local cadastrado");
+            this.localEscolhido = localSalvo.getBody();
+            this.adicionarLocalNaCampanha();
+        }
+        else adicionarMensagemDeErro();
+        this.localEscolhido = new Local();
+        fecharDialogo("dlgNovoLocal");
     }
 }

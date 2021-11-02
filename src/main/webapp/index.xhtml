@@ -430,31 +430,34 @@
             <div class="ui-fluid p-formgrid p-grid">
                 <div class="p-field p-col-12 p-md-12">
                     <p:outputLabel for="descricaoNovoLocal" value="Descrição"/>
-                    <p:inputText id="descricaoNovoLocal"/>
+                    <p:inputText id="descricaoNovoLocal" value="#{campanhaView.localEscolhido.descricao}"/>
                 </div>
                 <div class="p-field p-col-12 p-md-2 centro-texto-input">
                     <p:outputLabel for="cepNovoLocal" value="CEP"/>
-                    <p:inputMask id="cepNovoLocal" mask="99999-999"/>
+                    <p:inputMask id="cepNovoLocal" mask="99999-999" value="#{campanhaView.localEscolhido.cep}"/>
                 </div>
                 <div class="p-field p-col-12 p-md-4">
                     <p:outputLabel for="bairroNovoLocal" value="Bairro"/>
-                    <p:inputText id="bairroNovoLocal"/>
+                    <p:inputText id="bairroNovoLocal" value="#{campanhaView.localEscolhido.bairro}"/>
                 </div>
                 <div class="p-field p-col-12 p-md-4">
                     <p:outputLabel for="ruaNovoLocal" value="Rua"/>
-                    <p:inputText id="ruaNovoLocal"/>
+                    <p:inputText id="ruaNovoLocal" value="#{campanhaView.localEscolhido.rua}"/>
                 </div>
                 <div class="p-field p-col-12 p-md-2 centro-texto-input">
                     <p:outputLabel for="numeroNovoLocal" value="Número"/>
-                    <p:inputText id="numeroNovoLocal"/>
+                    <p:inputText id="numeroNovoLocal" value="#{campanhaView.localEscolhido.numero}"/>
                 </div>
             </div>
 
             <div class="botoes-dialogo">
                 <p:commandButton icon="fa fa-close" value="Cancelar" styleClass="botao-cancelar"
-                                 onclick="PF('dlgNovoLocal').hide()"/>
+                                 onclick="PF('dlgNovoLocal').hide()">
+                    <p:ajax resetValues="true" update="@form"/>
+                </p:commandButton>
                 <p:commandButton icon="fa fa-check" value="Cadastrar" styleClass="botao-gravar"
-                                 action="#{campanhaView.finalizarCampanha}"/>
+                                 action="#{campanhaView.cadastrarNovoLocal}"
+                                 update="@form :formCadastroCampanha:tabLocais mensagem"/>
             </div>
         </h:form>
     </p:dialog>

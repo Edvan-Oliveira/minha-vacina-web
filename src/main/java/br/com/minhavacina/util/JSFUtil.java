@@ -35,8 +35,9 @@ public class JSFUtil {
         return false;
     }
 
-    public static void adicionarMensagemDeAviso(String titulo) {
+    public static boolean adicionarMensagemDeAviso(String titulo) {
         adicionarMensagemDeAviso(titulo, null);
+        return false;
     }
 
     public static void adicionarMensagemDeAviso(String titulo, String mensagem) {
