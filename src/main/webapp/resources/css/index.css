@@ -178,7 +178,8 @@ body .ui-datatable thead th {
 .pesquisa-endereco {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    width: 100%;
+    background-color: #DF2E2E;
 }
 
 .centro-texto-input .ui-widget-header,

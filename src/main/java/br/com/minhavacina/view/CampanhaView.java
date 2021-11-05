@@ -10,6 +10,7 @@ import br.com.minhavacina.util.JSFUtil;
 import lombok.Data;
 import org.springframework.http.ResponseEntity;
 
+import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -164,6 +165,11 @@ public class CampanhaView implements Serializable {
         this.localEscolhido = new Local();
     }
 
+    public void abrirDialogoNovoLocal() {
+        this.localEscolhido = new Local();
+        abrirDialogo("dlgNovoLocal");
+    }
+
     public void cadastrarNovoLocal() {
         this.localEscolhido.setMunicipio(this.campanha.getMunicipio());
         ResponseEntity<Local> localSalvo = this.campanhaService.cadastrarNovoLocal(this.localEscolhido);
@@ -171,8 +177,7 @@ public class CampanhaView implements Serializable {
             adicionarMensagemDeSucesso("Local cadastrado");
             this.localEscolhido = localSalvo.getBody();
             this.adicionarLocalNaCampanha();
-        }
-        else adicionarMensagemDeErro();
+        } else adicionarMensagemDeErro();
         this.localEscolhido = new Local();
         fecharDialogo("dlgNovoLocal");
     }

@@ -107,7 +107,7 @@
         <h:form id="formCadastroCampanha">
             <p:outputPanel styleClass="agrupamento-input">
                 <p:outputLabel for="nomeCadastro" value="Nome" styleClass="margin-label-bottom"/>
-                <p:inputText id="nomeCadastro" size="153" required="true"
+                <p:inputText id="nomeCadastro" required="true" style="width: 100%;"
                              requiredMessage="Nome da campanha é obrigatório"
                              value="#{campanhaView.campanha.nome}"/>
             </p:outputPanel>
@@ -185,23 +185,31 @@
             </div>
 
             <p:outputPanel>
-                <p:outputLabel for="localCadastro" value="Pesquise locais no município" styleClass="margin-label-bottom"/>
-                <div class="pesquisa-endereco">
-                    <div>
-                        <p:autoComplete id="localCadastro" size="110" value="#{campanhaView.localEscolhido}"
+                <div class="ui-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-8">
+                        <p:outputLabel for="localCadastro" value="Pesquise locais no município"
+                                       styleClass="margin-label-bottom"/>
+                        <p:autoComplete id="localCadastro" value="#{campanhaView.localEscolhido}"
                                         converter="localConverter"
                                         completeMethod="#{campanhaView.buscarLocaisPorDescricao}" var="local"
                                         itemValue="#{local}" itemLabel="#{local.descricao}" minQueryLength="1"
                                         scrollHeight="250" disabled="#{campanhaView.campanha.municipio.id == null}"/>
+                    </div>
 
+                    <div class="p-field p-col-12 p-md-2">
                         <p:commandButton id="btnAdicionaLocal" icon="fa fa-check" value="Adicionar"
-                                         style="margin-left: 30px;" action="#{campanhaView.adicionarLocalNaCampanha}"
+                                         style="margin-top: 27px;"
+                                         action="#{campanhaView.adicionarLocalNaCampanha}"
                                          process="@this localCadastro" update="mensagem localCadastro tabLocais"
                                          disabled="#{campanhaView.campanha.municipio.id == null}"/>
                     </div>
-                    <p:commandButton id="btnNovoLocal" icon="fa fa-plus" value="Novo Local" style="margin-left: 10px;"
-                                     onclick="PF('dlgNovoLocal').show()"
-                                     disabled="#{campanhaView.campanha.municipio.id == null}"/>
+
+                    <div class="p-field p-col-12 p-md-2">
+                        <p:commandButton id="btnNovoLocal" icon="fa fa-plus" value="Novo Local"
+                                         style="margin-top: 27px;" process="@this"
+                                         action="#{campanhaView.abrirDialogoNovoLocal}"
+                                         disabled="#{campanhaView.campanha.municipio.id == null}"/>
+                    </div>
                 </div>
             </p:outputPanel>
 
@@ -309,12 +317,11 @@
     </p:dialog>
 
     <p:dialog id="dlgAtualizaCampanha" widgetVar="dlgAtualizaCampanha" modal="true" resizable="false"
-              header="Editar Campanha" closable="false" responsive="true"
-              position="center" onShow="PF('dlgDetalheCampanha').initPosition()">
+              header="Editar Campanha" closable="false" height="80vh" width="90vw">
         <h:form id="formAtualizaCampanha">
             <p:outputPanel styleClass="agrupamento-input">
                 <p:outputLabel for="nomeAtualiza" value="Nome" styleClass="margin-label-bottom"/>
-                <p:inputText id="nomeAtualiza" size="153" required="true"
+                <p:inputText id="nomeAtualiza" required="true" style="width: 100%;"
                              requiredMessage="Nome da campanha é obrigatório"
                              value="#{campanhaView.campanha.nome}"/>
             </p:outputPanel>
@@ -335,9 +342,13 @@
                                      filterMatchMode="contains" required="true"
                                      requiredMessage="Município da campanha é obrigatório"
                                      value="#{campanhaView.campanha.municipio.id}">
-                        <f:selectItem itemLabel="Selecione um município" itemValue="#{null}"/>
+
+                        <f:selectItem itemLabel="Selecione um município" itemDisabled="true"/>
                         <f:selectItems value="#{campanhaView.listaDeMunicipios}" var="municipio"
                                        itemLabel="#{municipio.nome}" itemValue="#{municipio.id}"/>
+
+                        <p:ajax process="@this"
+                                update="@this localAtualiza, btnAdicionaLocalAtualiza, btnNovoLocalAtualiza"/>
                     </p:selectOneMenu>
                 </div>
 
@@ -378,7 +389,7 @@
                     <p:outputLabel for="horarioInicioDiaAtualiza" value="Hora abertura"
                                    styleClass="margin-label-bottom"/>
                     <p:inputMask id="horarioInicioDiaAtualiza" size="15" mask="99:99" required="true"
-                                 requiredMessage="Hora abertura é obrigatório"
+                                 requiredMessage="Hora abertura é obrigatório" placeholder="__:__"
                                  value="#{campanhaView.horariosCampanhaDTO.horarioInicioDiaTexto}"/>
                 </div>
                 <div class="campo-opcional">
@@ -390,10 +401,60 @@
                 </div>
             </div>
 
-            <p:outputPanel styleClass="agrupamento-input">
-                <p:outputLabel for="localAtualiza" value="Local" styleClass="margin-label-bottom"/>
-                <p:inputText id="localAtualiza" size="153" required="true"
-                             requiredMessage="Local da campanha é obrigatório" placeholder="__:__"/>
+            <p:outputPanel>
+                <div class="ui-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-8">
+                        <p:outputLabel for="localAtualiza" value="Pesquise locais no município"
+                                       styleClass="margin-label-bottom"/>
+                        <p:autoComplete id="localAtualiza" value="#{campanhaView.localEscolhido}"
+                                        converter="localConverter"
+                                        completeMethod="#{campanhaView.buscarLocaisPorDescricao}" var="local"
+                                        itemValue="#{local}" itemLabel="#{local.descricao}" minQueryLength="1"
+                                        scrollHeight="250" disabled="#{campanhaView.campanha.municipio.id == null}"/>
+                    </div>
+
+                    <div class="p-field p-col-12 p-md-2">
+                        <p:commandButton id="btnAdicionaLocalAtualiza" icon="fa fa-check" value="Adicionar"
+                                         style="margin-top: 27px;"
+                                         action="#{campanhaView.adicionarLocalNaCampanha}"
+                                         process="@this localAtualiza" update="mensagem localAtualiza tabLocaisAtualiza"
+                                         disabled="#{campanhaView.campanha.municipio.id == null}"/>
+                    </div>
+
+                    <div class="p-field p-col-12 p-md-2">
+                        <p:commandButton id="btnNovoLocalAtualiza" icon="fa fa-plus" value="Novo Local"
+                                         style="margin-top: 27px;"
+                                         action="#{campanhaView.abrirDialogoNovoLocal}"
+                                         disabled="#{campanhaView.campanha.municipio.id == null}"/>
+                    </div>
+                </div>
+            </p:outputPanel>
+
+            <p:outputPanel id="panelTabLocaisAtualiza" style="margin-top: 25px;">
+                <p:dataTable id="tabLocaisAtualiza" widgetVar="tabLocais" value="#{campanhaView.campanha.locais}"
+                             var="local" emptyMessage="Adicione um ou mais locais" scrollHeight="250">
+                    <p:column headerText="Descrição">
+                        <p:outputLabel value="#{local.descricao}"/>
+                    </p:column>
+                    <p:column headerText="CEP">
+                        <p:outputLabel value="#{local.cep}"/>
+                    </p:column>
+                    <p:column headerText="Bairro">
+                        <p:outputLabel value="#{local.bairro}"/>
+                    </p:column>
+                    <p:column headerText="Rua">
+                        <p:outputLabel value="#{local.rua}"/>
+                    </p:column>
+                    <p:column headerText="Número">
+                        <p:outputLabel value="#{local.numero}"/>
+                    </p:column>
+                    <p:column headerText="Remover">
+                        <p:commandButton icon="fa fa-trash" update="tabLocaisAtualiza" process="@this"
+                                         action="#{campanhaView.removerLocalDaCampanha}">
+                            <f:setPropertyActionListener target="#{campanhaView.localEscolhido}" value="#{local}"/>
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
             </p:outputPanel>
 
             <div class="botoes-dialogo">
@@ -403,8 +464,7 @@
                 </p:commandButton>
                 <p:commandButton icon="fa fa-save" value="Atualizar" styleClass="botao-gravar"
                                  action="#{campanhaView.atualizarCampanha}"
-                                 update="@form, mensagem, :formTabCampanhas:tabCampanhas,
-                                            :formFiltroCampanhas:statusFiltroCampanhas"/>
+                                 update="@form, mensagem, :formTabCampanhas:tabCampanhas"/>
             </div>
         </h:form>
     </p:dialog>
@@ -457,7 +517,8 @@
                 </p:commandButton>
                 <p:commandButton icon="fa fa-check" value="Cadastrar" styleClass="botao-gravar"
                                  action="#{campanhaView.cadastrarNovoLocal}"
-                                 update="@form :formCadastroCampanha:tabLocais mensagem"/>
+                                 update="@form :formCadastroCampanha:tabLocais
+                                        :formAtualizaCampanha:tabLocaisAtualiza mensagem"/>
             </div>
         </h:form>
     </p:dialog>
