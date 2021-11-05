@@ -1,10 +1,13 @@
 package br.com.minhavacina.domain;
 
+import br.com.minhavacina.util.JSFUtil;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static br.com.minhavacina.util.JSFUtil.objetoEstarNuloOuVazio;
 
 @Data
 public class Local {
@@ -22,5 +25,13 @@ public class Local {
     public Local() {
         this.municipio = new Municipio();
         this.campanhas = new ArrayList<>();
+    }
+
+    public String exibirEndereco() {
+        return "Lugar: " + this.descricao
+                + " - CEP: " + this.cep
+                + " - Bairro: " + this.bairro
+                + " - Rua: " + this.rua
+                + " - Número: " + this.numero;
     }
 }

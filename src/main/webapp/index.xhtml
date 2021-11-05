@@ -303,7 +303,10 @@
                     </p:column>
 
                     <p:column>
-                        <p:outputLabel value="Localidade: ---"/>
+                        <p:outputLabel value="Locais: "/><br/><br/>
+                        <p:repeat value="#{campanhaView.campanha.locais}" var="enderecoLocal">
+                            <p:outputLabel value="#{enderecoLocal.exibirEndereco()}"/><br/><br/>
+                        </p:repeat>
                     </p:column>
                 </p:panelGrid>
             </div>
