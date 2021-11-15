@@ -183,15 +183,18 @@
                 <div class="campo-opcional">
                     <p:outputLabel for="dataFimCadastro" value="Data de término" styleClass="margin-label-bottom"/>
                     <p:calendar id="dataFimCadastro" showOn="button" pattern="dd/MM/yyyy" mask="99/99/9999"
-                                placeholder="__/__/____" size="20" value="#{campanhaView.campanha.dataFim}"/>
+                                placeholder="__/__/____" size="20" value="#{campanhaView.campanha.dataFim}"
+                                required="true" requiredMessage="Data de término é obrigatória"/>
                 </div>
                 <div class="campo-opcional">
                     <p:outputLabel for="idadeMinimaCadastro" value="Idade mínima" styleClass="margin-label-bottom"/>
-                    <p:spinner id="idadeMinimaCadastro" size="15" value="#{campanhaView.campanha.idadeMinima}" min="0"/>
+                    <p:spinner id="idadeMinimaCadastro" size="15" value="#{campanhaView.campanha.idadeMinima}" min="0"
+                               required="true" requiredMessage="Idade mínima é obrigatória"/>
                 </div>
                 <div class="campo-opcional">
                     <p:outputLabel for="idadeMaximaCadastro" value="Idade máxima" styleClass="margin-label-bottom"/>
-                    <p:spinner id="idadeMaximaCadastro" size="15" value="#{campanhaView.campanha.idadeMaxima}" min="0"/>
+                    <p:spinner id="idadeMaximaCadastro" size="15" value="#{campanhaView.campanha.idadeMaxima}" min="0"
+                               required="true" requiredMessage="Idade máxima é obrigatória"/>
                 </div>
                 <div class="campo-opcional">
                     <p:outputLabel for="horarioInicioDiaCadastro" value="Hora abertura"
@@ -403,15 +406,18 @@
                 <div class="campo-opcional">
                     <p:outputLabel for="dataFimAtualiza" value="Data de término" styleClass="margin-label-bottom"/>
                     <p:calendar id="dataFimAtualiza" showOn="button" pattern="dd/MM/yyyy" mask="99/99/9999"
-                                placeholder="__/__/____" size="20" value="#{campanhaView.campanha.dataFim}"/>
+                                placeholder="__/__/____" size="20" value="#{campanhaView.campanha.dataFim}"
+                                required="true" requiredMessage="Data de término é obrigatória"/>
                 </div>
                 <div class="campo-opcional">
                     <p:outputLabel for="idadeMinimaAtualiza" value="Idade mínima" styleClass="margin-label-bottom"/>
-                    <p:spinner id="idadeMinimaAtualiza" size="15" value="#{campanhaView.campanha.idadeMinima}" min="0"/>
+                    <p:spinner id="idadeMinimaAtualiza" size="15" value="#{campanhaView.campanha.idadeMinima}" min="0"
+                               required="true" requiredMessage="Idade mínima é obrigatória"/>
                 </div>
                 <div class="campo-opcional">
                     <p:outputLabel for="idadeMaximaAtualiza" value="Idade máxima" styleClass="margin-label-bottom"/>
-                    <p:spinner id="idadeMaximaAtualiza" size="15" value="#{campanhaView.campanha.idadeMaxima}" min="0"/>
+                    <p:spinner id="idadeMaximaAtualiza" size="15" value="#{campanhaView.campanha.idadeMaxima}" min="0"
+                               required="true" requiredMessage="Idade máxima é obrigatória"/>
                 </div>
                 <div class="campo-opcional">
                     <p:outputLabel for="horarioInicioDiaAtualiza" value="Hora abertura"
