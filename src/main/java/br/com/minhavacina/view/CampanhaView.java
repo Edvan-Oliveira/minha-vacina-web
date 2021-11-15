@@ -181,4 +181,9 @@ public class CampanhaView implements Serializable {
         this.localEscolhido = new Local();
         fecharDialogo("dlgNovoLocal");
     }
+
+    public String sair() {
+        removerObjetoDaSessao("token");
+        return redirecionarParaPagina("login");
+    }
 }

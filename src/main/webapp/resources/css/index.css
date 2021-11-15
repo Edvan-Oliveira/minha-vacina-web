@@ -187,3 +187,35 @@ body .ui-datatable thead th {
 .centro-texto-input .ui-widget-content .ui-inputfield {
     text-align: center;
 }
+
+.cabecalho {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container-logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.logo {
+    width: 50px;
+    margin-right: 10px;
+}
+
+#titulo-logo {
+    font-size: 30px;
+    font-weight: bolder;
+    color: rgba(76, 93, 109, 0.9);
+    font-style: italic;
+}
+
+body .btn-sair {
+    border-radius: 10px;
+    margin-right: 20px;
+    height: 40px;
+}

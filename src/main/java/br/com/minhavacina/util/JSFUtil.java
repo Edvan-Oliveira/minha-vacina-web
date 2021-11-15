@@ -105,4 +105,8 @@ public class JSFUtil {
         return objetoResponseEntity.getStatusCodeValue() >= 200
                 && objetoResponseEntity.getStatusCodeValue() < 300;
     }
+
+    public static String redirecionarParaPagina(String nomeDaPagina) {
+        return String.format("%s?faces-redirect=true", nomeDaPagina);
+    }
 }

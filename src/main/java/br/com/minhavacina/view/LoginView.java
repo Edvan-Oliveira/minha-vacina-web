@@ -35,7 +35,7 @@ public class LoginView implements Serializable {
             return null;
         }
         adicionarObjetoNaSessao("token", tokenDTO.getBody().getToken());
-        return "index?faces-redirect=true";
+        return redirecionarParaPagina("index");
     }
 
     private boolean validarLogin(ResponseEntity<TokenDTO> tokenDTOResponseEntity) {

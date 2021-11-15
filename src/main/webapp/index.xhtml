@@ -19,6 +19,16 @@
         <f:viewAction action="#{campanhaView.carregarDadosdaTela}"/>
     </f:metadata>
 
+    <div class="cabecalho">
+        <div class="container-logo">
+            <h:graphicImage library="imagens" name="logo.png" styleClass="logo"/>
+            <p:outputLabel value="Minha Vacina" id="titulo-logo"/>
+        </div>
+        <p:commandButton icon="fa fa-share-square-o" value="Sair" styleClass="btn-sair"
+                         action="#{campanhaView.sair}"/>
+    </div>
+    <p:separator/>
+
     <p:growl id="mensagem"/>
 
     <div class="nova-campanha-filtro-ativas-inativas">
