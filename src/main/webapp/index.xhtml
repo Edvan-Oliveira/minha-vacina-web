@@ -27,7 +27,7 @@
         <p:commandButton icon="fa fa-share-square-o" value="Sair" styleClass="btn-sair"
                          action="#{campanhaView.sair}"/>
     </div>
-    <p:separator/>
+    <p:separator style="margin-bottom: 40px"/>
 
     <p:growl id="mensagem"/>
 
@@ -53,33 +53,48 @@
         <h:form id="formTabCampanhas">
             <p:dataTable id="tabCampanhas" widgetVar="tabCampanhas" paginator="true" paginatorPosition="bottom"
                          emptyMessage="Nenhuma campanha encontrada" value="#{campanhaView.listaDeCampanhas}"
-                         var="campanha" rows="15">
+                         var="campanha" rows="15" filteredValue="#{campanhaView.filtroDaListaDeCampanhas}">
 
-                <p:column headerText="Nome" style="width: 20%">
+                <f:facet name="header">
+                    <div class="p-d-flex p-jc-end">
+                        <p:inputText id="globalFilter" onkeyup="PF('tabCampanhas').filter()"
+                                     style="width: 300px;"
+                                     placeholder="Faça uma pesquisa por qualquer campo"/>
+                    </div>
+                </f:facet>
+
+                <p:column headerText="Nome" style="width: 20%" sortBy="#{campanha.nome}" filterBy="#{campanha.nome}"
+                          filterStyle="display: none;">
                     <p:outputLabel value="#{campanha.nome}"/>
                 </p:column>
 
-                <p:column headerText="Data Início">
+                <p:column headerText="Data Início" sortBy="#{campanha.dataInicio}" filterBy="#{campanha.dataInicio}"
+                          filterStyle="display: none;">
                     <p:outputLabel value="#{campanhaView.formatarDataParaVisualizacao(campanha.dataInicio)}"/>
                 </p:column>
 
-                <p:column headerText="Data Termino">
+                <p:column headerText="Data Termino" sortBy="#{campanha.dataFim}" filterBy="#{campanha.dataFim}"
+                          filterStyle="display: none;">
                     <p:outputLabel value="#{campanhaView.formatarDataParaVisualizacao(campanha.dataFim)}"/>
                 </p:column>
 
-                <p:column headerText="Idade Mínima">
+                <p:column headerText="Idade Mínima" sortBy="#{campanha.idadeMinima}" filterBy="#{campanha.idadeMinima}"
+                          filterStyle="display: none;">
                     <p:outputLabel value="#{campanhaView.formatarIdadeParaVisualizacao(campanha.idadeMinima)}"/>
                 </p:column>
 
-                <p:column headerText="Idade Máxima">
+                <p:column headerText="Idade Máxima" sortBy="#{campanha.idadeMaxima}" filterBy="#{campanha.idadeMaxima}"
+                          filterStyle="display: none;">
                     <p:outputLabel value="#{campanhaView.formatarIdadeParaVisualizacao(campanha.idadeMaxima)}"/>
                 </p:column>
 
-                <p:column headerText="Município">
+                <p:column headerText="Município" sortBy="#{campanha.municipio.nome}"
+                          filterBy="#{campanha.municipio.nome}" filterStyle="display: none;">
                     <p:outputLabel value="#{campanha.municipio.nome}"/>
                 </p:column>
 
-                <p:column headerText="Vacina">
+                <p:column headerText="Vacina" sortBy="#{campanha.vacina.nome}" filterBy="#{campanha.vacina.nome}"
+                          filterStyle="display: none;">
                     <p:outputLabel value="#{campanha.vacina.nome}"/>
                 </p:column>
 

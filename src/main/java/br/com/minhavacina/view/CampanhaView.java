@@ -31,6 +31,7 @@ public class CampanhaView implements Serializable {
     private List<Vacina> listaDeVacinas;
     private Campanha campanha;
     private List<Campanha> listaDeCampanhas;
+    private List<Campanha> filtroDaListaDeCampanhas;
     private boolean statusListaCampanhas;
     private HorariosCampanhaDTO horariosCampanhaDTO;
     private Local localEscolhido;
@@ -39,6 +40,7 @@ public class CampanhaView implements Serializable {
         this.campanhaService = new CampanhaService();
         this.campanha = new Campanha();
         this.listaDeCampanhas = new ArrayList<>();
+        this.filtroDaListaDeCampanhas = new ArrayList<>();
         this.statusListaCampanhas = true;
         this.horariosCampanhaDTO = new HorariosCampanhaDTO();
         this.localEscolhido = new Local();
