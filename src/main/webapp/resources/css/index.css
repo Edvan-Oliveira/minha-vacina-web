@@ -219,3 +219,17 @@ body .btn-sair {
     margin-right: 20px;
     height: 40px;
 }
+
+.rodape {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.info-rodape {
+    margin-bottom: 5px;
+    color: #666;
+}
+
